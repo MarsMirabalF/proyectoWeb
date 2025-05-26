@@ -6,3 +6,25 @@ body {
 code {
   font-family: Arial, sans-serif;
 }
+
+.pantalla-dividida {
+    display: flex;
+    height: calc(100vh - 60px);
+}
+
+.panel-izquierdo {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.divisor {
+    width: 2px;
+    background-color: black;
+}
+
+.panel-derecho {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}

@@ -4,7 +4,6 @@ import archivosServicio from '../../servicios/archivosServicio';
 function Drive({ usuario }) {
     const [archivos, setArchivos] = useState([]);
     const [error, setError] = useState('');
-    const [archivoSeleccionado, setArchivoSeleccionado] = useState(null);
     const [nombreEditar, setNombreEditar] = useState('');
     const [idEditando, setIdEditando] = useState(null);
 
@@ -27,7 +26,6 @@ function Drive({ usuario }) {
 
         try {
             await archivosServicio.subirArchivo(usuario.id, archivo);
-            setArchivoSeleccionado(null);
             cargarArchivos();
         } catch (err) {
             setError('Error al subir el archivo.');
@@ -71,20 +69,20 @@ function Drive({ usuario }) {
         <div className="drive-contenedor">
             <div className="drive-encabezado">
                 <h2>Mi Drive</h2>
-                <label className="boton-subir">
-                    + Subir archivo
+                <button className="boton-subir">
+                    Subir archivo
                     <input
                         type="file"
                         onChange={manejarSubida}
                         style={{ display: 'none' }}
                     />
-                </label>
+                </button>
             </div>
 
             {error && <p className="error">{error}</p>}
 
             {archivos.length === 0 ? (
-                <p className="sin-archivos">No hay archivos. ¡Sube uno!</p>
+                <p className="sin-archivos">No hay archivos</p>
             ) : (
                 <table className="tabla-archivos">
                     <thead>

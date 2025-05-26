@@ -18,7 +18,7 @@ function EntradaUsuario({ alEntrar }) {
 
     return (
         <div className="entrada-contenedor">
-            <h1>Lista de Notas</h1>
+            <h1>Proyecto de To do List y Repositorio </h1>
 
             {error && <p className="error">{error}</p>}
 
