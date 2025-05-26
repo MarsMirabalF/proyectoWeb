@@ -1,8 +1,11 @@
 const express = require('express');
 const enrutador = express.Router();
 const { obtenerNotas, obtenerNotaPorId, crearNota, actualizarNota, cambiarEstado, eliminarNota } = require('../controllers/notas.controller');
+const { verificarToken } = require('../middlewares/auth.middleware');
 
-enrutador.get('/usuario/:usuario_id', obtenerNotas);
+enrutador.use(verificarToken);
+
+enrutador.get('/', obtenerNotas);
 enrutador.get('/:id', obtenerNotaPorId); 
 enrutador.post('/', crearNota);
 enrutador.put('/:id', actualizarNota);

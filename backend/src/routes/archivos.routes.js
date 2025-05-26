@@ -9,6 +9,10 @@ const {
     eliminarArchivo
 } = require('../controllers/archivos.controller');
 
+const { verificarToken } = require('../middlewares/auth.middleware');
+
+enrutador.use(verificarToken);
+
 enrutador.get('/usuario/:usuario_id', obtenerArchivos);
 enrutador.post('/subir/:usuario_id', subida.single('archivo'), subirArchivo);
 enrutador.put('/:id', actualizarArchivo);

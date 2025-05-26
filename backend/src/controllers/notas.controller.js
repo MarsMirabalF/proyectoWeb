@@ -1,7 +1,7 @@
 const pool = require('../config/db');
 
 const obtenerNotas = async (req, res) => {
-    const { usuario_id } = req.params;
+    const usuario_id = req.usuario.id;
 
     try {
         const resultado = await pool.query(
@@ -17,10 +17,13 @@ const obtenerNotas = async (req, res) => {
 };
 
 const crearNota = async (req, res) => {
-    const { usuario_id, titulo, detalle, hora, fecha } = req.body;
+    const { titulo, detalle, hora, fecha } = req.body;
+    const usuario_id = req.usuario.id;
 
-    if (!usuario_id || !titulo) {
-        return res.status(500).json({ mensaje: 'El usuario_id y el título son obligatorios.' });
+    if (!titulo) {
+        return res.status(400).json({
+            mensaje: 'El título es obligatorio.'
+        });
     }
 
     try {
@@ -47,8 +50,8 @@ const actualizarNota = async (req, res) => {
 
     try {
         const notaExistente = await pool.query(
-            'SELECT id FROM notas WHERE id = $1',
-            [id]
+            'SELECT id FROM notas WHERE id = $1 AND usuario_id = $2',
+            [id, req.usuario.id]
         );
 
         if (notaExistente.rows.length === 0) {
@@ -62,9 +65,9 @@ const actualizarNota = async (req, res) => {
                 hora = COALESCE($3, hora),
                 fecha = COALESCE($4, fecha),
                 updated_at = CURRENT_TIMESTAMP
-            WHERE id = $5
+            WHERE id = $5 AND usuario_id = $6
              RETURNING *`,
-            [titulo, detalle, hora, fecha, id]
+            [titulo, detalle, hora, fecha, id, req.usuario.id]
         );
 
         res.status(200).json({
@@ -82,8 +85,10 @@ const cambiarEstado = async (req, res) => {
 
     try {
         const notaExistente = await pool.query(
-            'SELECT id, completada FROM notas WHERE id = $1',
-            [id]
+            `SELECT id, completada
+            FROM notas
+            WHERE id = $1 AND usuario_id = $2`,
+        [id, req.usuario.id]
         );
 
         if (notaExistente.rows.length === 0) {
@@ -94,9 +99,9 @@ const cambiarEstado = async (req, res) => {
 
         const resultado = await pool.query(
             `UPDATE notas SET completada = $1, updated_at = CURRENT_TIMESTAMP
-            WHERE id = $2
+            WHERE id = $2 AND usuario_id = $3
              RETURNING *`,
-            [!estadoActual, id]
+            [!estadoActual, id, req.usuario.id]
         );
 
         res.status(200).json({
@@ -114,8 +119,11 @@ const eliminarNota = async (req, res) => {
 
     try {
         const resultado = await pool.query(
-            'DELETE FROM notas WHERE id = $1 RETURNING id',
-            [id]
+            `DELETE FROM notas
+            WHERE id = $1
+            AND usuario_id = $2
+            RETURNING id`,
+            [id, req.usuario.id]
         );
 
         if (resultado.rows.length === 0) {
@@ -134,8 +142,8 @@ const obtenerNotaPorId = async (req, res) => {
 
     try {
         const resultado = await pool.query(
-            'SELECT * FROM notas WHERE id = $1',
-            [id]
+            'SELECT * FROM notas WHERE id = $1 AND usuario_id = $2',
+            [id, req.usuario.id]
         );
 
         if (resultado.rows.length === 0) {
