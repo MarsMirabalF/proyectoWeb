@@ -37,11 +37,13 @@ function TarjetaNota({ nota,   alActualizar , alEditar }) {
                 {nota.fecha && (
                     <span>{new Date(nota.fecha).toLocaleDateString('es-ES')}</span>
                 )}
+                <br />
+                <br />
                 {nota.hora && (
                     <span>{nota.hora}</span>
                 )}
             </div>
-
+            <br />
             <div className="tarjeta-botones">
                 <button onClick={manejarEstado} className="boton-estado">
                     {nota.completada ? 'Marcar pendiente' : 'Marcar completada'}
