@@ -19,9 +19,12 @@ const registrar = async (req, res) => {
             return res.status(409).json({ mensaje: 'El nombre de usuario ya está en uso.' });
         }
 
+        const sal = await bcrypt.genSalt(10);
+        const passwordEncrip = await bcrypt.hash(password, sal);
+
         const resultado = await pool.query(
             'INSERT INTO usuarios (username, password_hash) VALUES ($1, $2) RETURNING id, username, created_at',
-            [username, password]
+            [username, passwordEncrip]
         );
 
         res.status(201).json({
@@ -35,12 +38,12 @@ const registrar = async (req, res) => {
 };
 
 const eliminarCuenta = async (req, res) => {
-    const { id } = req.params;
+    const idUsuario = req.usuario.id;
 
     try {
         const resultado = await pool.query(
             'DELETE FROM usuarios WHERE id = $1 RETURNING id',
-            [id]
+            [idUsuario]
         );
 
         if (resultado.rows.length === 0) {
@@ -54,4 +57,49 @@ const eliminarCuenta = async (req, res) => {
     }
 };
 
-module.exports = { registrar, eliminarCuenta };
+const iniciarSesion = async (req, res) => {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+        return res.status(400).json({ mensaje: 'El usuario y la contraseña son obligatorios.' });
+    }
+
+    try {
+        const resultado = await pool.query(
+            'SELECT * FROM usuarios WHERE username = $1',
+            [username]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(401).json({ mensaje: 'Credenciales incorrectas.' });
+        }
+
+        const usuario = resultado.rows[0];
+
+        const contrasenaValida = await bcrypt.compare(password, usuario.password_hash);
+
+        if (!contrasenaValida) {
+            return res.status(401).json({ mensaje: 'Credenciales incorrectas.' });
+        }
+
+        const token = jwt.sign(
+            { id: usuario.id, username: usuario.username },
+            process.env.JWT_SECRETO,
+            { expiresIn: process.env.JWT_EXPIRA_EN }
+        );
+
+        res.status(200).json({
+            mensaje: 'Inicio de sesión exitoso.',
+            token,
+            usuario: {
+                id: usuario.id,
+                username: usuario.username,
+            },
+        });
+    } catch (error) {
+        console.error('Error al iniciar sesión:', error);
+        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+    }
+};
+
+module.exports = { registrar, eliminarCuenta, iniciarSesion };
