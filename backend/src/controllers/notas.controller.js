@@ -1,5 +1,3 @@
-notas.controller
-
 const pool = require('../config/db');
 
 const obtenerNotas = async (req, res) => {
@@ -43,4 +41,92 @@ const crearNota = async (req, res) => {
     }
 };
 
-module.exports = { obtenerNotas, crearNota };
+const actualizarNota = async (req, res) => {
+    const { id } = req.params;
+    const { titulo, detalle, hora, fecha } = req.body;
+
+    try {
+        const notaExistente = await pool.query(
+            'SELECT id FROM notas WHERE id = $1',
+            [id]
+        );
+
+        if (notaExistente.rows.length === 0) {
+            return res.status(404).json({ mensaje: 'Nota no encontrada.' });
+        }
+
+        const resultado = await pool.query(
+            `UPDATE notas
+             SET titulo = COALESCE($1, titulo),
+                 detalle = COALESCE($2, detalle),
+                 hora = COALESCE($3, hora),
+                 fecha = COALESCE($4, fecha),
+                 updated_at = CURRENT_TIMESTAMP
+             WHERE id = $5
+             RETURNING *`,
+            [titulo, detalle, hora, fecha, id]
+        );
+
+        res.status(200).json({
+            mensaje: 'Nota actualizada exitosamente.',
+            nota: resultado.rows[0],
+        });
+    } catch (error) {
+        console.error('Error al actualizar nota:', error);
+        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+    }
+};
+
+const cambiarEstado = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const notaExistente = await pool.query(
+            'SELECT id, completada FROM notas WHERE id = $1',
+            [id]
+        );
+
+        if (notaExistente.rows.length === 0) {
+            return res.status(404).json({ mensaje: 'Nota no encontrada.' });
+        }
+
+        const estadoActual = notaExistente.rows[0].completada;
+
+        const resultado = await pool.query(
+            `UPDATE notas SET completada = $1, updated_at = CURRENT_TIMESTAMP
+             WHERE id = $2
+             RETURNING *`,
+            [!estadoActual, id]
+        );
+
+        res.status(200).json({
+            mensaje: `Nota marcada como ${!estadoActual ? 'completada' : 'incompleta'}.`,
+            nota: resultado.rows[0],
+        });
+    } catch (error) {
+        console.error('Error al cambiar estado:', error);
+        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+    }
+};
+
+const eliminarNota = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const resultado = await pool.query(
+            'DELETE FROM notas WHERE id = $1 RETURNING id',
+            [id]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({ mensaje: 'Nota no encontrada.' });
+        }
+
+        res.status(200).json({ mensaje: 'Nota eliminada exitosamente.' });
+    } catch (error) {
+        console.error('Error al eliminar nota:', error);
+        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+    }
+};
+
+module.exports = { obtenerNotas, crearNota, actualizarNota, cambiarEstado, eliminarNota };
