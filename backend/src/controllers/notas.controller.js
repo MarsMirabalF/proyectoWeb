@@ -129,4 +129,24 @@ const eliminarNota = async (req, res) => {
     }
 };
 
-module.exports = { obtenerNotas, crearNota, actualizarNota, cambiarEstado, eliminarNota };
+const obtenerNotaPorId = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const resultado = await pool.query(
+            'SELECT * FROM notas WHERE id = $1',
+            [id]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({ mensaje: 'Nota no encontrada.' });
+        }
+
+        res.status(200).json({ nota: resultado.rows[0] });
+    } catch (error) {
+        console.error('Error al obtener nota:', error);
+        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+    }
+};
+
+module.exports = { obtenerNotas, obtenerNotaPorId, crearNota, actualizarNota, cambiarEstado, eliminarNota };
