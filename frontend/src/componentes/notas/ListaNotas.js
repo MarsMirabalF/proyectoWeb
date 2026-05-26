@@ -7,6 +7,7 @@ function ListaNotas({ usuario }) {
     const [notas, setNotas] = useState([]);
     const [error, setError] = useState('');
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
+    const [notaEditar, setNotaEditar] = useState(null);
 
     const cargarNotas = useCallback(async () => {
         try {
@@ -22,6 +23,11 @@ function ListaNotas({ usuario }) {
     }, [cargarNotas]);
 
     const abrirFormularioNuevo = () => {
+        setMostrarFormulario(true);
+    };
+
+    const abrirFormularioEditar = (nota) => {
+        setNotaEditar(nota);
         setMostrarFormulario(true);
     };
 

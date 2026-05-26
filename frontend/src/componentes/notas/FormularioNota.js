@@ -1,16 +1,38 @@
 import { useState } from 'react';
+import { useEffect } from 'react';
+import notasServicio from '../../servicios/notasServicio';
 
-function FormularioNota({ usuarioId, alGuardar, alCancelar }) {
+function FormularioNota({ usuarioId, notaEditar ,alGuardar , alCancelar }) {
     const [titulo, setTitulo] = useState('');
     const [detalle, setDetalle] = useState('');
+    const [hora, setHora] = useState('');
+    const [fecha, setFecha] = useState('');
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        if (notaEditar) {
+            setTitulo(notaEditar.titulo);
+            setDetalle(notaEditar.detalle);
+            setHora(notaEditar.hora);
+            setFecha(notaEditar.fecha?.split('T')[0]);
+        }
+    }, [notaEditar]);
 
     const manejarEnvio = async (e) => {
         e.preventDefault();
         setError('');
 
         try {
-            console.log({ usuarioId, titulo, detalle });
+            if (notaEditar) {
+                await notasServicio.actualizarNota(notaEditar.id, {
+                    titulo, detalle, hora, fecha
+                });
+            } else {
+                await notasServicio.crearNota({
+                    usuario_id: usuarioId,
+                    titulo, detalle, hora, fecha
+                });
+            }
             alGuardar();
         } catch (err) {
             setError('Error al guardar la nota.');
@@ -62,7 +84,7 @@ function FormularioNota({ usuarioId, alGuardar, alCancelar }) {
 
                 <div className="botones-formulario">
                     <button type="submit">
-                        Crear nota
+                        {notaEditar ? 'Guardar cambios' : 'Crear nota'}
                     </button>
                     <button type="button" onClick={alCancelar} className="boton-cancelar">
                         Cancelar
