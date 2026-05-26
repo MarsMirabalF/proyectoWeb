@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import notasServicio from '../../servicios/notasServicio';
 import FormularioNota from './FormularioNota';
+import TarjetaNota from './TarjetaNota';
 
 function ListaNotas({ usuario }) {
 
@@ -71,15 +72,12 @@ function ListaNotas({ usuario }) {
                     {notas.map((nota) => (
                         <div key={nota.id} className="nota-simple">
 
-                            <h3>{nota.titulo}</h3>
-
-                            {nota.detalle && (
-                                <p>{nota.detalle}</p>
-                            )}
-
-                            <p>
-                                Estado: {nota.completada ? 'Completada' : 'Pendiente'}
-                            </p>
+                            <TarjetaNota
+                                    key={nota.id}
+                                    nota={nota}
+                                    alActualizar={cargarNotas}
+                                    alEditar={abrirFormularioEditar}
+                            />
 
                         </div>
                     ))}
