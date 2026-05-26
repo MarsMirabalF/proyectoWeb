@@ -29,8 +29,6 @@ function EntradaUsuario({ alEntrar }) {
                         type="number"
                         value={idUsuario}
                         onChange={(e) => setIdUsuario(e.target.value)}
-                        min="1"
-                        required
                     />
                 </div>
                 <button type="submit">Entrar</button>

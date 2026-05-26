@@ -2,7 +2,6 @@ import { useState } from 'react';
 import EntradaUsuario from './componentes/autenticacion/EntradaUsuario';
 import ListaNotas from './componentes/notas/ListaNotas';
 import Encabezado from './componentes/diseñitos/Encabezado';
-import './App.css';
 
 function App() {
 

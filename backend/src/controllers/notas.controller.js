@@ -26,8 +26,8 @@ const crearNota = async (req, res) => {
     try {
         const resultado = await pool.query(
             `INSERT INTO notas (usuario_id, titulo, detalle, hora, fecha)
-             VALUES ($1, $2, $3, $4, $5)
-             RETURNING *`,
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING *`,
             [usuario_id, titulo, detalle, hora, fecha]
         );
 
@@ -57,12 +57,12 @@ const actualizarNota = async (req, res) => {
 
         const resultado = await pool.query(
             `UPDATE notas
-             SET titulo = COALESCE($1, titulo),
-                 detalle = COALESCE($2, detalle),
-                 hora = COALESCE($3, hora),
-                 fecha = COALESCE($4, fecha),
-                 updated_at = CURRENT_TIMESTAMP
-             WHERE id = $5
+            SET titulo = COALESCE($1, titulo),
+                detalle = COALESCE($2, detalle),
+                hora = COALESCE($3, hora),
+                fecha = COALESCE($4, fecha),
+                updated_at = CURRENT_TIMESTAMP
+            WHERE id = $5
              RETURNING *`,
             [titulo, detalle, hora, fecha, id]
         );
@@ -94,7 +94,7 @@ const cambiarEstado = async (req, res) => {
 
         const resultado = await pool.query(
             `UPDATE notas SET completada = $1, updated_at = CURRENT_TIMESTAMP
-             WHERE id = $2
+            WHERE id = $2
              RETURNING *`,
             [!estadoActual, id]
         );
