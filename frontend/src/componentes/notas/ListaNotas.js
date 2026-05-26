@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import notasServicio from '../../servicios/notasServicio';
+import FormularioNota from './FormularioNota';
 
 function ListaNotas({ usuario }) {
 
@@ -24,6 +25,15 @@ function ListaNotas({ usuario }) {
         setMostrarFormulario(true);
     };
 
+    const alGuardar = () => {
+        setMostrarFormulario(false);
+        cargarNotas();
+    };
+
+    const alCancelar = () => {
+        setMostrarFormulario(false);
+    };
+
     return (
         <div className="lista-notas-contenedor">
 
@@ -32,7 +42,12 @@ function ListaNotas({ usuario }) {
             )}
 
             {mostrarFormulario ? (
-                <p>Aquí irá el formulario de nueva nota</p>
+                <FormularioNota
+                    usuarioId={usuario.id}
+                    notaEditar={null}
+                    alGuardar={alGuardar}
+                    alCancelar={alCancelar}
+                />
             ) : (
                 <>
                 <div className="lista-encabezado">
