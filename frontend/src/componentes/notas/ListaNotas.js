@@ -5,6 +5,7 @@ function ListaNotas({ usuario }) {
 
     const [notas, setNotas] = useState([]);
     const [error, setError] = useState('');
+    const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
     const cargarNotas = useCallback(async () => {
         try {
@@ -19,6 +20,10 @@ function ListaNotas({ usuario }) {
         cargarNotas();
     }, [cargarNotas]);
 
+    const abrirFormularioNuevo = () => {
+        setMostrarFormulario(true);
+    };
+
     return (
         <div className="lista-notas-contenedor">
 
@@ -26,7 +31,16 @@ function ListaNotas({ usuario }) {
                 <p className="error">{error}</p>
             )}
 
-            <h2>Mis notas</h2>
+            {mostrarFormulario ? (
+                <p>Aquí irá el formulario de nueva nota</p>
+            ) : (
+                <>
+                <div className="lista-encabezado">
+                    <h2>Mis notas</h2>
+                    <button onClick={abrirFormularioNuevo} className="boton-nueva-nota">
+                        Nueva nota
+                    </button>
+                </div>
 
             {notas.length === 0 ? (
                 <p>No hay notas.</p>
@@ -51,7 +65,8 @@ function ListaNotas({ usuario }) {
 
                 </div>
             )}
-
+            </>
+            )}
         </div>
     );
 }
