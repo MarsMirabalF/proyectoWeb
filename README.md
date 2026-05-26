@@ -13,7 +13,7 @@ llamado backend con el comando: npm run dev
 rutas a probar:
 Registrar usuario (esto es solo para futuro, lo puse porque tuve tiempo) :
 POST: 
-http://localhost:3000/api/auth/registrar
+http://localhost:4000/api/auth/registrar
 Body:
 {
     "username": "carlos",
@@ -22,7 +22,7 @@ Body:
 
 Crear nota:
 POST: 
-http://localhost:3000/api/notas
+http://localhost:4000/api/notas
 Body:
 {
     "titulo": "Comprar víveres",
@@ -34,11 +34,11 @@ Body:
 //aqui aplico la logica de mi diseño de la db
 ver todas las notas de un usuario:
 GET:
-http://localhost:3000/api/notas/usuario/(id USUARIO)
+http://localhost:4000/api/notas/usuario/(id USUARIO)
 
 editar una nota: 
 PUT:
-http://localhost:3000/api/notas/(id de la nota)
+http://localhost:4000/api/notas/(id de la nota)
 {
     "titulo": "Comprar víveres urgente",
     "detalle": "Leche, pan, huevos y mantequilla :D"
@@ -46,19 +46,19 @@ http://localhost:3000/api/notas/(id de la nota)
 
 ver la nota especifica (esto lo cree solo para hacer la prueba)
 GET: 
-http://localhost:3000/api/notas/(ID de la nota)
+http://localhost:4000/api/notas/(ID de la nota)
 
 cambiar estado para marcar si esta hecho o no:
 PATCH:
-http://localhost:3000/api/notas/(id de la nota)/estado
+http://localhost:4000/api/notas/(id de la nota)/estado
 
 eliminar nota:
 DELETE:
-http://localhost:3000/api/notas/(id de la nota)
+http://localhost:4000/api/notas/(id de la nota)
 
 eliminar usurio:
 DELETE:
-http://localhost:3000/api/auth/eliminar-cuenta/7
+http://localhost:4000/api/auth/eliminar-cuenta/7
 
 
 Entender que es una api rest;
