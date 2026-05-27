@@ -85,3 +85,35 @@ Luego aqui use la ia DeepSeek porque queria añadir un mensaje aparte de solo el
 como puede observar la ia lo hizo sin sql, yo me apegue mas la tutorial de fazt usando SQL, 
 lo use para averiguar mensajitos y no solo error 201 por ejemplo, ademas en un contexto diferente
 ![alt text](image-2.png)
+
+
+# Frontend
+
+## Requisitos y Configuración Inicial
+
+### Instalación de Node.js y npm
+- **Sitio oficial:** https://nodejs.org/
+
+### Crear proyecto React
+
+npx create-react-app frontend
+cd frontend
+npm start
+
+---
+
+React:
+Video introductorio de Código Facilito: https://www.youtube.com/watch?v=rZ41y16Z5Ac
+Documentación JSX: https://react.dev/learn/writing-markup-with-jsx
+Tutorial JSX - Video: https://www.youtube.com/watch?v=yJZx2q50s_g
+
+Axios:
+Documentación oficial de axios del video de fazt lo saque: https://axios-http.com/es/docs/intro
+Video Axios en React :https://www.youtube.com/watch?v=qM7QrAA-KTw
+Tutorial Axios - Fazt Code : https://www.youtube.com/watch?v=VcJly0VxkXs
+
+Estados (useState) y Efectos (useEffect):
+Documentación useState:https://react.dev/reference/react/useState
+Documentación useEffect: https://react.dev/reference/react/useEffect
+Video Hooks en React: https://www.youtube.com/watch?v=LlvTdy9H4EA
+Video useState y useEffect - Traversy Media:** https://www.youtube.com/watch?v=O6P86IqJGFs
