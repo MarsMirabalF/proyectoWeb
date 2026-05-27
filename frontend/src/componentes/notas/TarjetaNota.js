@@ -1,4 +1,27 @@
-function TarjetaNota({ nota }) {
+import notasServicio from '../../servicios/notasServicio';
+
+function TarjetaNota({ nota,   alActualizar , alEditar }) {
+
+    const manejarEstado = async () => {
+        try {
+            await notasServicio.cambiarEstado(nota.id);
+            alActualizar();
+        } catch (err) {
+            console.error('Error al cambiar estado:', err);
+        }
+    };
+
+    const manejarEliminar = async () => {
+        if (window.confirm('¿Estás seguro de eliminar esta nota?')) {
+            try {
+                await notasServicio.eliminarNota(nota.id);
+                alActualizar();
+            } catch (err) {
+                console.error('Error al eliminar nota:', err);
+            }
+        }
+    };
+
     return (
         <div className={`tarjeta-nota ${nota.completada ? 'completada' : ''}`}>
             <div className="tarjeta-encabezado">
@@ -18,6 +41,19 @@ function TarjetaNota({ nota }) {
                     <span>{nota.hora}</span>
                 )}
             </div>
+
+            <div className="tarjeta-botones">
+                <button onClick={manejarEstado} className="boton-estado">
+                    {nota.completada ? 'Marcar pendiente' : 'Marcar completada'}
+                </button>
+                <button onClick={() => alEditar(nota)} className="boton-editar">
+                    Editar
+                </button>
+                <button onClick={manejarEliminar} className="boton-eliminar">
+                    Eliminar
+                </button>
+            </div>
+
         </div>
     );
 }
