@@ -49,5 +49,82 @@ const subirArchivo = async (req, res) => {
     }
 };
 
+const actualizarArchivo = async (req, res) => {
+    const { id } = req.params;
+    const { nombre } = req.body;
 
-module.exports = { obtenerArchivos, subirArchivo};
+    if (!nombre) {
+        return res.status(400).json({ mensaje: 'El nuevo nombre es obligatorio.' });
+    }
+
+    try {
+        const archivoExistente = await pool.query(
+            'SELECT * FROM archivos WHERE id = $1',
+            [id]
+        );
+
+        if (archivoExistente.rows.length === 0) {
+            return res.status(404).json({ mensaje: 'Archivo no encontrado.' });
+        }
+
+        const archivo = archivoExistente.rows[0];
+        const extension = path.extname(archivo.ruta);
+        const carpeta = path.dirname(archivo.ruta);
+
+        const nombreLimpio = nombre.replace(/\s+/g, '_');
+        const nuevaRuta = path.join(carpeta, `${Date.now()}_${nombreLimpio}${extension}`).replace(/\\/g, '/');
+
+        fs.renameSync(archivo.ruta, nuevaRuta);
+
+
+        const resultado = await pool.query(
+            `UPDATE archivos
+            SET nombre = $1, ruta = $2, updated_at = CURRENT_TIMESTAMP
+            WHERE id = $3
+            RETURNING *`,
+            [nombre, nuevaRuta, id]
+        );
+
+        res.status(200).json({
+            mensaje: 'Archivo actualizado exitosamente.',
+            archivo: resultado.rows[0]
+        });
+    } catch (error) {
+        console.error('Error al actualizar archivo:', error);
+        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+    }
+};
+
+
+const eliminarArchivo = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const archivoExistente = await pool.query(
+            'SELECT * FROM archivos WHERE id = $1',
+            [id]
+        );
+
+        if (archivoExistente.rows.length === 0) {
+            return res.status(404).json({ mensaje: 'Archivo no encontrado.' });
+        }
+
+        const archivo = archivoExistente.rows[0];
+
+        
+        if (fs.existsSync(archivo.ruta)) {
+            fs.unlinkSync(archivo.ruta);
+        }
+
+        
+        await pool.query('DELETE FROM archivos WHERE id = $1', [id]);
+
+        res.status(200).json({ mensaje: 'Archivo eliminado exitosamente.' });
+    } catch (error) {
+        console.error('Error al eliminar archivo:', error);
+        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+    }
+};
+
+
+module.exports = { obtenerArchivos, subirArchivo, actualizarArchivo, eliminarArchivo};
