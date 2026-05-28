@@ -87,6 +87,29 @@ lo use para averiguar mensajitos y no solo error 201 por ejemplo, ademas en un c
 ![alt text](image-2.png)
 
 
+Para la parte del drive:
+
+El siguiente tutorial de mi youtuber favorito de programacion fazt, si bien el sube imagenes yo use para archivos
+y explica muy bien que es el multer:
+https://www.youtube.com/watch?v=AbJ-y2vZgBs
+
+El siguiente tutorial nos explica que es multer con un ejemplo en codigo solo es necesario ver la primera parte que es la unica que vi: 
+http://youtube.com/watch?v=nRZE3It4B-E
+
+El siguiente tutorial es el definito que use y en el que me base en su mayoria para hacer:
+https://www.youtube.com/watch?v=2QYwRishObs
+en este ultimo tutorial se uso de referencia el siguiente repositorion como referencia para la arquitectura del file system: 
+https://github.com/JePaFeNet/crud-node.js/tree/v11-multer
+
+Para la instalacion de multer y configuracion basica se uso el anterior tutorial sin embargo los ejemplos de referencia que se uso 
+es de la siguiente pagina web:
+https://www.digitalocean.com/community/tutorials/nodejs-uploading-files-multer-express
+
+Para intentar implementar la idea de que CADA USUARIO TENGA SU DRIVE me base en el siguiente repositorio en gitHub que ya ha implementado usando file system: 
+https://github.com/moahnaf11/File-Uploader/blob/main/controllers/folderController.js
+
+
+
 # Frontend
 
 ## Requisitos y Configuración Inicial
