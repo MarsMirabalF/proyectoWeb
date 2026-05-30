@@ -34,11 +34,13 @@ function ListaNotas({ usuario }) {
 
     const alGuardar = () => {
         setMostrarFormulario(false);
+        setNotaEditar(null);
         cargarNotas();
     };
 
     const alCancelar = () => {
         setMostrarFormulario(false);
+        setNotaEditar(null); 
     };
 
     return (
@@ -51,7 +53,7 @@ function ListaNotas({ usuario }) {
             {mostrarFormulario ? (
                 <FormularioNota
                     usuarioId={usuario.id}
-                    notaEditar={null}
+                    notaEditar={notaEditar}
                     alGuardar={alGuardar}
                     alCancelar={alCancelar}
                 />

@@ -15,6 +15,11 @@ function FormularioNota({ usuarioId, notaEditar ,alGuardar , alCancelar }) {
             setDetalle(notaEditar.detalle);
             setHora(notaEditar.hora);
             setFecha(notaEditar.fecha?.split('T')[0]);
+        } else {
+            setTitulo('');
+            setDetalle('');
+            setHora('');
+            setFecha('');
         }
     }, [notaEditar]);
 
@@ -41,7 +46,7 @@ function FormularioNota({ usuarioId, notaEditar ,alGuardar , alCancelar }) {
 
     return (
         <div className="formulario-contenedor">
-            <h2>Nueva nota</h2>
+            <h2>{notaEditar ? 'Editar nota' : 'Nueva nota'}</h2>
 
             {error && <p className="error">{error}</p>}
 

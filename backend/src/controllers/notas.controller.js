@@ -20,7 +20,7 @@ const crearNota = async (req, res) => {
     const { usuario_id, titulo, detalle, hora, fecha } = req.body;
 
     if (!usuario_id || !titulo) {
-        return res.status(400).json({ mensaje: 'El usuario_id y el título son obligatorios.' });
+        return res.status(500).json({ mensaje: 'El usuario_id y el título son obligatorios.' });
     }
 
     try {

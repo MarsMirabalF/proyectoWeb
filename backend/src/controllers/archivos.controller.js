@@ -22,7 +22,7 @@ const subirArchivo = async (req, res) => {
     const { usuario_id } = req.params;
 
     if (!req.file) {
-        return res.status(400).json({ mensaje: 'No se envió ningún archivo.' });
+        return res.status(500).json({ mensaje: 'No se envió ningún archivo.' });
     }
 
     try {
@@ -54,7 +54,7 @@ const actualizarArchivo = async (req, res) => {
     const { nombre } = req.body;
 
     if (!nombre) {
-        return res.status(400).json({ mensaje: 'El nuevo nombre es obligatorio.' });
+        return res.status(500).json({ mensaje: 'El nuevo nombre es obligatorio.' });
     }
 
     try {
