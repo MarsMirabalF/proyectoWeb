@@ -5,7 +5,7 @@ const { verificarToken } = require('../middlewares/auth.middleware');
 
 enrutador.use(verificarToken);
 
-enrutador.get('/', obtenerNotas);
+enrutador.get('/usuario', obtenerNotas);
 enrutador.get('/:id', obtenerNotaPorId); 
 enrutador.post('/', crearNota);
 enrutador.put('/:id', actualizarNota);
