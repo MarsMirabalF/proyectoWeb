@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import EntradaUsuario from './componentes/autenticacion/EntradaUsuario';
+import axios from 'axios';
+import Login from './componentes/autenticacion/Login';
+import Registro from './componentes/autenticacion/Registro';
 import ListaNotas from './componentes/notas/ListaNotas';
 import Encabezado from './componentes/diseñitos/Encabezado';
 import Drive from './componentes/drive/Drive';
@@ -7,13 +9,20 @@ import Drive from './componentes/drive/Drive';
 function App() {
 
     const [usuario, setUsuario] = useState(null);
+    const [token, setToken] = useState(null);
+    const [mostrarRegistro, setMostrarRegistro] = useState(false);
 
-    const alEntrar = (idUsuario) => {
-        setUsuario({ id: idUsuario });
+    const alLoginExitoso = (datosUsuario, tokenRecibido) => {
+        setUsuario(datosUsuario);
+        setToken(tokenRecibido);
+        
+        axios.defaults.headers.common['Authorization'] = `Bearer ${tokenRecibido}`;
     };
 
     const alSalir = () => {
         setUsuario(null);
+        setToken(null);
+        delete axios.defaults.headers.common['Authorization'];
     };
 
     if (usuario) {
@@ -36,7 +45,14 @@ function App() {
     return (
         <div className="App">
             <main className="contenido-principal centrado">
-                <EntradaUsuario alEntrar={alEntrar} />
+                {mostrarRegistro ? (
+                    <Registro alIniciarSesion={() => setMostrarRegistro(false)} />
+                ) : (
+                    <Login
+                        alLoginExitoso={alLoginExitoso}
+                        alRegistrarse={() => setMostrarRegistro(true)}
+                    />
+                )}
             </main>
         </div>
     );

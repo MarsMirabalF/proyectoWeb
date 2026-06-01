@@ -1,7 +1,6 @@
 const express = require('express');
 const enrutador = express.Router();
 const subida = require('../config/multer');
-const { verificarToken } = require('../middlewares/auth.middleware');
 
 const {
     obtenerArchivos,

@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const URL_BASE = 'http://localhost:4000/api/notas';
 
-const obtenerNotas = async (usuarioId) => {
-    const respuesta = await axios.get(`${URL_BASE}/usuario/${usuarioId}`);
+const obtenerNotas = async () => {
+    const respuesta = await axios.get(`${URL_BASE}/usuario`);
     return respuesta.data;
 };
 
