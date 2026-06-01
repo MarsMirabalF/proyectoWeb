@@ -1,6 +1,7 @@
 const express = require('express');
 const enrutador = express.Router();
 const subida = require('../config/multer');
+const { verificarToken } = require('../middlewares/auth.middleware');
 
 const {
     obtenerArchivos,
@@ -13,8 +14,8 @@ const { verificarToken } = require('../middlewares/auth.middleware');
 
 enrutador.use(verificarToken);
 
-enrutador.get('/usuario/:usuario_id', obtenerArchivos);
-enrutador.post('/subir/:usuario_id', subida.single('archivo'), subirArchivo);
+enrutador.get('/', obtenerArchivos);
+enrutador.post('/subir', subida.single('archivo'), subirArchivo);
 enrutador.put('/:id', actualizarArchivo);
 enrutador.delete('/:id', eliminarArchivo);
 

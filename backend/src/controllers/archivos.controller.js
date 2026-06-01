@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const obtenerArchivos = async (req, res) => {
-    const { usuario_id } = req.params;
+    const usuario_id = req.usuario.id;
 
     try {
         const resultado = await pool.query(
@@ -19,7 +19,7 @@ const obtenerArchivos = async (req, res) => {
 };
 
 const subirArchivo = async (req, res) => {
-    const { usuario_id } = req.params;
+    const usuario_id = req.usuario.id;
 
     if (!req.file) {
         return res.status(500).json({ mensaje: 'No se envió ningún archivo.' });
@@ -52,6 +52,7 @@ const subirArchivo = async (req, res) => {
 const actualizarArchivo = async (req, res) => {
     const { id } = req.params;
     const { nombre } = req.body;
+    const usuario_id = req.usuario.id;
 
     if (!nombre) {
         return res.status(500).json({ mensaje: 'El nuevo nombre es obligatorio.' });
@@ -59,8 +60,8 @@ const actualizarArchivo = async (req, res) => {
 
     try {
         const archivoExistente = await pool.query(
-            'SELECT * FROM archivos WHERE id = $1',
-            [id]
+            'SELECT * FROM archivos WHERE id = $1 AND usuario_id = $2',
+            [id, usuario_id]
         );
 
         if (archivoExistente.rows.length === 0) {
@@ -98,11 +99,12 @@ const actualizarArchivo = async (req, res) => {
 
 const eliminarArchivo = async (req, res) => {
     const { id } = req.params;
+    const usuario_id = req.usuario.id;
 
     try {
         const archivoExistente = await pool.query(
-            'SELECT * FROM archivos WHERE id = $1',
-            [id]
+            'SELECT * FROM archivos WHERE id = $1 AND usuario_id = $2',
+            [id, usuario_id]
         );
 
         if (archivoExistente.rows.length === 0) {
@@ -117,7 +119,11 @@ const eliminarArchivo = async (req, res) => {
         }
 
         
-        await pool.query('DELETE FROM archivos WHERE id = $1', [id]);
+        await pool.query(
+            'DELETE FROM archivos WHERE id = $1 AND usuario_id = $2',
+            [id, usuario_id]
+
+        );
 
         res.status(200).json({ mensaje: 'Archivo eliminado exitosamente.' });
     } catch (error) {
