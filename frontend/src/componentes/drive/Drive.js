@@ -22,7 +22,9 @@ function Drive({ usuario }) {
 
     const manejarSubida = async (e) => {
         const archivo = e.target.files[0];
-        if (!archivo) return;
+        if (!archivo) {
+            return;
+        }
 
         try {
             await archivosServicio.subirArchivo(archivo);

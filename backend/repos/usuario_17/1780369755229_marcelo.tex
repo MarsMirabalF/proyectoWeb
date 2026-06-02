@@ -1,0 +1,271 @@
+%==================================================
+% SECCIÓN — Structurer.py
+%==================================================
+
+\begin{frame}
+    \begin{center}
+        {\Huge \textbf{Structurer.py}}\\[0.4em]
+        {\Large Organización Automática de Texto}
+    \end{center}
+\end{frame}
+
+%==================================================
+
+\begin{frame}{Objetivo General del Archivo}
+El archivo \texttt{structurer.py} transforma texto desordenado
+en un resumen organizado automáticamente por temas.
+
+\vspace{0.4em}
+
+\begin{block}{Flujo General}
+\begin{center}
+Oraciones
+$\rightarrow$
+Preprocesamiento
+$\rightarrow$
+Clustering
+$\rightarrow$
+Scores
+$\rightarrow$
+Ranking
+$\rightarrow$
+Resumen Final
+\end{center}
+\end{block}
+
+\vspace{0.4em}
+
+\textbf{Idea principal:}
+\begin{itemize}
+    \item Agrupar oraciones similares
+    \item Detectar automáticamente el tema
+    \item Elegir las frases más importantes
+    \item Generar una salida estructurada
+\end{itemize}
+
+\end{frame}
+
+%==================================================
+
+\begin{frame}[fragile]{Función \texttt{extract\_topic\_label}}
+Esta función descubre automáticamente un nombre representativo
+para un grupo de oraciones.
+
+\vspace{0.4em}
+
+\begin{block}{Idea conceptual}
+Cluster
+$\rightarrow$
+Palabras importantes
+$\rightarrow$
+Mejor palabra
+$\rightarrow$
+Título
+\end{block}
+
+\vspace{0.3em}
+
+\textbf{Código principal:}
+
+\begin{verbatim}
+combined = {}
+
+for vec in vectors:
+    for word, score in vec.items():
+        combined[word] =
+        combined.get(word,0) + score
+\end{verbatim}
+
+\vspace{0.3em}
+
+Cada oración ``vota'' por ciertas palabras.
+La palabra con mayor score domina el tema.
+
+\end{frame}
+
+%==================================================
+
+\begin{frame}{Acumulación de Scores}
+El sistema suma la importancia de cada palabra
+a través de todas las oraciones del cluster.
+
+\vspace{0.4em}
+
+\begin{block}{Fórmula}
+\[
+S(w)=\sum_{i=1}^{n} score_i(w)
+\]
+\end{block}
+
+Donde:
+
+\begin{itemize}
+    \item $S(w)$ = score total de la palabra
+    \item $score_i(w)$ = score en la oración $i$
+    \item $n$ = cantidad de oraciones
+\end{itemize}
+
+\vspace{0.3em}
+
+\textbf{Ejemplo:}
+
+\[
+\texttt{ia: }2 + 3 = 5
+\]
+
+\vspace{0.2em}
+
+La palabra con mayor score será usada como tema principal.
+
+\end{frame}
+
+%==================================================
+
+\begin{frame}[fragile]{Reconstrucción de Palabras}
+Los stems no son agradables para mostrar:
+
+\vspace{0.2em}
+
+\begin{center}
+\texttt{intelig}
+\end{center}
+
+\vspace{0.3em}
+
+Por eso el sistema busca palabras reales similares.
+
+\vspace{0.4em}
+
+\begin{verbatim}
+candidates = [
+ t for t in all_tokens
+ if t.startswith(...)
+]
+\end{verbatim}
+
+\vspace{0.4em}
+
+\textbf{Ejemplo}
+
+\[
+\texttt{intelig}
+\rightarrow
+\texttt{inteligencia}
+\]
+
+\vspace{0.3em}
+
+Luego se selecciona la palabra más larga:
+
+\begin{verbatim}
+best = max(candidates, key=len)
+\end{verbatim}
+
+\end{frame}
+
+%==================================================
+
+\begin{frame}[fragile]{Construcción de Clusters}
+Las oraciones se agrupan según su tema.
+
+\vspace{0.4em}
+
+\begin{verbatim}
+clusters.setdefault(label, []).append(i)
+\end{verbatim}
+
+\vspace{0.4em}
+
+\textbf{Resultado típico}
+
+\begin{verbatim}
+{
+ 0:[0,1],
+ 1:[2,3]
+}
+\end{verbatim}
+
+\vspace{0.4em}
+
+Cada cluster guarda:
+\begin{itemize}
+    \item oraciones
+    \item scores
+    \item vectores
+\end{itemize}
+
+\vspace{0.3em}
+
+Esto permite construir resúmenes separados por tema.
+
+\end{frame}
+
+%==================================================
+
+\begin{frame}{Importancia del Cluster}
+Cada tema obtiene un score promedio.
+
+\vspace{0.4em}
+
+\begin{block}{Promedio}
+\[
+Promedio =
+\frac{\sum score_i}{n}
+\]
+\end{block}
+
+\vspace{0.4em}
+
+\textbf{Interpretación}
+
+\begin{itemize}
+    \item Promedio alto
+    $\rightarrow$
+    tema importante
+    \item Promedio bajo
+    $\rightarrow$
+    información secundaria
+\end{itemize}
+
+\vspace{0.4em}
+
+Luego los clusters se ordenan desde el más relevante
+hasta el menos relevante.
+
+\end{frame}
+
+%==================================================
+
+\begin{frame}[fragile]{Ranking de Oraciones}
+El sistema selecciona las frases más importantes
+de cada tema.
+
+\vspace{0.4em}
+
+\begin{verbatim}
+ranked = sorted(
+ zip(cluster_scores,
+     cluster_sentences),
+ reverse=True
+)[:top_n]
+\end{verbatim}
+
+\vspace{0.4em}
+
+\textbf{Proceso}
+
+\begin{itemize}
+    \item Une:
+    \[
+    (score, sentence)
+    \]
+    \item Ordena por score
+    \item Elige las mejores frases
+\end{itemize}
+
+\vspace{0.4em}
+
+Esto funciona como un ranking de buscadores
+o sistemas de recomendación.
+
+\end{frame}

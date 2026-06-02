@@ -170,6 +170,24 @@ https://github.com/bezkoder/node-js-express-login-example/blob/master/app/middle
 Y mi propia implementacion corresponde a la clase auth.middleware.js en la direccion ..\backend\src\middlewares\auth.middleware.js
 
 
+## Apoyo IA
+Se uso la ia copilot para ver como seria una implementacion de file system:
+Yo adapte lo siguiente en la clase multer.js en la ubicacion backend\src\config\multer.js
+
+![alt text](image-6.png)
+
+El ejemplo proporcionado yo lo adapte en la clase multer:
+![alt text](image-7.png)
+![alt text](image-8.png)
+![alt text](image-9.png)
+
+luego use la tabla de referencia
+![alt text](image-10.png)
+
+y finalmente me dijo;
+![alt text](image-11.png)
+
+
 
 
 # Frontend
@@ -233,3 +251,82 @@ Y mi propia implementacion corresponde a la clase Drive.js en la direccion ..\fr
 se uso el mismo tutorial del back que puse y era este
 Para saber el funcionamiento y implementacion de JWT el siguiente tutorial tambien se uso para react en el frontend:
 https://youtu.be/zBbqrcvdJjQ?si=SFEtDnktYmzVptCG
+
+
+
+
+
+## Problema importante que tuve
+Estaba fuera y necesité avanzar el proyecto desde otra computadora inicie sesión con mi cuenta de GitHub para poder trabajar sobre mi repositorio y subir los cambios hice varios commits desde esa máquina y después me di cuenta de que había un problema con las fechas registradas estaban aproximadamente poco menos 1 año atras. Más adelante intenté corregir el historial con un rebase falle colocando otra vez malas fechas ya que queria las que yo hice pero no funciono mas bien lo hice mal poniendo fechas equivocadas por culpa mia ya que nunca habia hecho un rebase ahi puse 25 de mayo que es antes del ultimo commit sin afectar que era viernes intente una segunda vez y si pude acomodar las fechas a una hora aproximada no exacta, sin embargo en mi activity aun se ven esos commits vacios que elimine de hace un año, pero puede verificar que esos 5 commits que se subieron hace casi año y se eliminaron son consistentes con la fecha y los aportes que continua el de dia viernes 29 de mayo, y yo trabaje estos comits el domingo 31 de mayo.
+
+
+
+## Autocorrector
+muchas veces se uso el auto corrector de visual studio code, para corregir errores de sintaxis
+
+
+
+
+
+
+### Tutorial como ejecutar el proyecto
+Requisitos previos:
+- Node.js v18+
+- PostgreSQL v14+
+- pgAdmin
+- Clonar el repositorio
+
+# Backend
+ir al back:
+cd backend
+
+# Inicializar el proyecto
+npm install
+
+# Instalar dependencias de producción
+npm install express
+npm install pg
+npm install dotenv
+npm install bcryptjs
+npm install jsonwebtoken
+npm install multer
+npm install cors
+
+# Instalar dependencias de desarrollo
+npm install --save-dev nodemon
+
+
+
+
+
+# Frontend
+Entrar a la carpeta:
+cd frontend
+
+# Instalar dependencias
+npm install
+npm install axios
+npm install react-router-dom
+
+
+
+# Backup db
+para esto debe abrir PGAdmin 4
+luego crearse una db con postgres 18
+![alt text](image-4.png)
+llamarla: "proyectoWeb" y darle a save
+![alt text](image-5.png)
+luego darle click derecho a la db creada se abrira esto:
+![alt text](image.png)
+entrar a open query tool y desde ahi abrir el .sql como en la imagen:
+![alt text](image-3.png)
+
+
+
+
+# Correr el back
+npm run dev
+
+
+# Correr el front
+npm start

@@ -7,6 +7,8 @@ require('dotenv').config();
 const almacenamiento = multer.diskStorage({
 
     destination: (req, file, cb) => {
+        //aqui leo multer dos veces osea segunda vez pero lo dejo porque sino no funciona
+        //da un error en el back, pero aun asi se suben los archivos.
         const token = req.headers['authorization'].split(' ')[1];
         const datos = jwt.verify(token, process.env.JWT_SECRETO);
         const usuario_id = datos.id;
