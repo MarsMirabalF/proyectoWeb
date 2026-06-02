@@ -127,19 +127,19 @@ https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status
 
 ## Uso de IA
 Luego aquí usé la IA DeepSeek porque quería añadir un mensaje aparte de solo el status:
-![alt text](image-1.png)
+![alt text](evidencias/image-1.png)
 
 Como puede observar, la IA lo hizo sin SQL. Yo me apegué más al tutorial de Fazt usando SQL.
 Lo usé para averiguar mensajes y no solamente devolver un código como 200, además de utilizarlo en un contexto diferente,
 yo lo tengo mi version en la clase archivos controller.
-![alt text](image-2.png)
+![alt text](evidencias/image-2.png)
 
 Luego use aqui ia chatGPT para crear el servicio de subir archivos esto que debido a mi implementacion tenia errores y no funcionaba
 tampoco encontre videos de youtube en español de este problema en especifico, yo lo tengo mi version adaptada en la clase 
 archivos controller.
-![alt text](image-13.png)
-![alt text](image-14.png)
-![alt text](image-12.png)
+![alt text](evidencias/image-13.png)
+![alt text](evidencias/image-14.png)
+![alt text](evidencias/image-12.png)
 
 
 # Parte del Drive
@@ -181,18 +181,18 @@ Y mi propia implementacion corresponde a la clase auth.middleware.js en la direc
 Se uso la ia copilot para ver como seria una implementacion de file system:
 Yo adapte lo siguiente en la clase multer.js en la ubicacion backend\src\config\multer.js
 
-![alt text](image-6.png)
+![alt text](evidencias/image-6.png)
 
 El ejemplo proporcionado yo lo adapte en la clase multer:
-![alt text](image-7.png)
-![alt text](image-8.png)
-![alt text](image-9.png)
+![alt text](evidencias/image-7.png)
+![alt text](evidencias/image-8.png)
+![alt text](evidencias/image-9.png)
 
 luego use la tabla de referencia
-![alt text](image-10.png)
+![alt text](evidencias/image-10.png)
 
 y finalmente me dijo;
-![alt text](image-11.png)
+![alt text](evidencias/image-11.png)
 
 
 
@@ -320,13 +320,21 @@ npm install react-router-dom
 ### Backup db
 para esto debe abrir PGAdmin 4
 luego crearse una db con postgres 18
-![alt text](image-4.png)
+
+![alt text](evidencias/image-4.png)
+
 llamarla: "proyectoWeb" y darle a save
-![alt text](image-5.png)
+
+![alt text](evidencias/image-5.png)
+
 luego darle click derecho a la db creada se abrira esto:
-![alt text](image.png)
+
+![alt text](evidencias/image.png)
+
 entrar a open query tool y desde ahi abrir el .sql como en la imagen:
-![alt text](image-3.png)
+
+![alt text](evidencias/image-3.png)
+
 
 
 
