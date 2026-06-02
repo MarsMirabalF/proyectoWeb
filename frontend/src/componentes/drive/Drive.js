@@ -61,6 +61,14 @@ function Drive({ usuario }) {
         }
     };
 
+    const manejarDescarga = async (archivo) => {
+        try {
+            await archivosServicio.descargarArchivo(archivo.id, archivo.nombre);
+        } catch (err) {
+            setError('Error al descargar el archivo.');
+        }
+    };
+
     const inputArchivoRef = useRef(null);
 
     const abrirSelectorArchivo = () => {
@@ -134,6 +142,9 @@ function Drive({ usuario }) {
                                             </button>
                                             <button onClick={() => manejarEliminar(archivo.id)} className="boton-eliminar">
                                                 Eliminar
+                                            </button>
+                                            <button onClick={() => manejarDescarga(archivo)} className="boton-descargar">
+                                                Descargar
                                             </button>
                                         </>
                                     )}

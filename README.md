@@ -130,9 +130,16 @@ Luego aquí usé la IA DeepSeek porque quería añadir un mensaje aparte de solo
 ![alt text](image-1.png)
 
 Como puede observar, la IA lo hizo sin SQL. Yo me apegué más al tutorial de Fazt usando SQL.
-Lo usé para averiguar mensajes y no solamente devolver un código como 201, además de utilizarlo en un contexto diferente.
+Lo usé para averiguar mensajes y no solamente devolver un código como 200, además de utilizarlo en un contexto diferente,
+yo lo tengo mi version en la clase archivos controller.
 ![alt text](image-2.png)
 
+Luego use aqui ia chatGPT para crear el servicio de subir archivos esto que debido a mi implementacion tenia errores y no funcionaba
+tampoco encontre videos de youtube en español de este problema en especifico, yo lo tengo mi version adaptada en la clase 
+archivos controller.
+![alt text](image-13.png)
+![alt text](image-14.png)
+![alt text](image-12.png)
 
 
 # Parte del Drive

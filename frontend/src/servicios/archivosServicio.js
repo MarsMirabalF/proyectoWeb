@@ -24,5 +24,21 @@ const eliminarArchivo = async (id) => {
     return respuesta.data;
 };
 
-const archivosServicio = { obtenerArchivos, subirArchivo, actualizarArchivo, eliminarArchivo };
+const descargarArchivo = async (id, nombre) => {
+    const respuesta = await axios.get(
+        `${URL_BASE}/descargar/${id}`,
+        { responseType: 'blob' }
+    );
+
+    const url = URL.createObjectURL(respuesta.data);
+
+    const enlace = document.createElement('a');
+    enlace.href = url;
+    enlace.download = nombre;
+    enlace.click();
+
+    URL.revokeObjectURL(url);
+};
+
+const archivosServicio = { obtenerArchivos, subirArchivo, actualizarArchivo, eliminarArchivo, descargarArchivo };
 export default archivosServicio;

@@ -6,7 +6,8 @@ const {
     obtenerArchivos,
     subirArchivo,
     actualizarArchivo,
-    eliminarArchivo
+    eliminarArchivo,
+    descargarArchivo
 } = require('../controllers/archivos.controller');
 
 const { verificarToken } = require('../middlewares/auth.middleware');
@@ -16,6 +17,7 @@ enrutador.use(verificarToken);
 enrutador.get('/', obtenerArchivos);
 enrutador.post('/subir', subida.single('archivo'), subirArchivo);
 enrutador.put('/:id', actualizarArchivo);
+enrutador.get('/descargar/:id', descargarArchivo);
 enrutador.delete('/:id', eliminarArchivo);
 
 module.exports = enrutador;

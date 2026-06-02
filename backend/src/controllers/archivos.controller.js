@@ -65,7 +65,7 @@ const actualizarArchivo = async (req, res) => {
         );
 
         if (archivoExistente.rows.length === 0) {
-            return res.status(404).json({ mensaje: 'Archivo no encontrado.' });
+            return res.status(500).json({ mensaje: 'Archivo no encontrado.' });
         }
 
         const archivo = archivoExistente.rows[0];
@@ -132,5 +132,30 @@ const eliminarArchivo = async (req, res) => {
     }
 };
 
+const descargarArchivo = async (req, res) => {
+    const { id } = req.params;
+    const usuario_id = req.usuario.id;
 
-module.exports = { obtenerArchivos, subirArchivo, actualizarArchivo, eliminarArchivo};
+    try {
+        const resultado = await pool.query(
+            'SELECT * FROM archivos WHERE id = $1 AND usuario_id = $2',
+            [id, usuario_id]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(500).json({ mensaje: 'Archivo no encontrado.' });
+        }
+
+        const archivo = resultado.rows[0];
+        const rutaAbsoluta = path.join(__dirname, '../../', archivo.ruta);
+
+        res.download(rutaAbsoluta, archivo.nombre);
+
+    } catch (error) {
+        console.error('Error al descargar archivo:', error);
+        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+    }
+};
+
+
+module.exports = { obtenerArchivos, subirArchivo, actualizarArchivo, eliminarArchivo, descargarArchivo};
