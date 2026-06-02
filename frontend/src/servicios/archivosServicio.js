@@ -2,17 +2,15 @@ import axios from 'axios';
 
 const URL_BASE = 'http://localhost:4000/api/archivos';
 
-const obtenerArchivos = async (usuarioId) => {
-    const respuesta = await axios.get(`${URL_BASE}/usuario/${usuarioId}`);
+const obtenerArchivos = async () => {
+    const respuesta = await axios.get(`${URL_BASE}`);
     return respuesta.data;
 };
 
-const subirArchivo = async (usuarioId, archivo) => {
+const subirArchivo = async (archivo) => {
     const formulario = new FormData();
     formulario.append('archivo', archivo);
-    const respuesta = await axios.post(`${URL_BASE}/subir/${usuarioId}`, formulario, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-    });
+    const respuesta = await axios.post(`${URL_BASE}/subir`, formulario);
     return respuesta.data;
 };
 

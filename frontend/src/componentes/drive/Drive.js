@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import archivosServicio from '../../servicios/archivosServicio';
 
 function Drive({ usuario }) {
@@ -9,12 +9,12 @@ function Drive({ usuario }) {
 
     const cargarArchivos = useCallback(async () => {
         try {
-            const datos = await archivosServicio.obtenerArchivos(usuario.id);
+            const datos = await archivosServicio.obtenerArchivos();
             setArchivos(datos.archivos);
         } catch (err) {
             setError('Error al cargar archivos.');
         }
-    }, [usuario.id]);
+    }, []);
 
     useEffect(() => {
         cargarArchivos();
@@ -25,7 +25,7 @@ function Drive({ usuario }) {
         if (!archivo) return;
 
         try {
-            await archivosServicio.subirArchivo(usuario.id, archivo);
+            await archivosServicio.subirArchivo(archivo);
             cargarArchivos();
         } catch (err) {
             setError('Error al subir el archivo.');
@@ -59,25 +59,30 @@ function Drive({ usuario }) {
         }
     };
 
-    const formatearTamano = (bytes) => {
-        if (bytes < 1024) return `${bytes} B`;
-        if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-        return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+    const inputArchivoRef = useRef(null);
+
+    const abrirSelectorArchivo = () => {
+        inputArchivoRef.current.click();
     };
 
     return (
         <div className="drive-contenedor">
             <div className="drive-encabezado">
                 <h2>Mi Drive</h2>
-                <button className="boton-subir">
-                    Subir archivo
                     <input
+                        ref={inputArchivoRef}
                         type="file"
                         onChange={manejarSubida}
                         style={{ display: 'none' }}
                     />
-                </button>
-            </div>
+
+                    <button
+                        onClick={abrirSelectorArchivo}
+                        className="boton-subir"
+                    >
+                        Subir archivo
+                    </button>
+        </div>
 
             {error && <p className="error">{error}</p>}
 
@@ -109,7 +114,7 @@ function Drive({ usuario }) {
                                     )}
                                 </td>
                                 <td>{archivo.extension}</td>
-                                <td>{formatearTamano(archivo.tamano)}</td>
+                                <td>{archivo.tamano} bytes</td>
                                 <td>
                                     {idEditando === archivo.id ? (
                                         <>
