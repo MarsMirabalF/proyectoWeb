@@ -39,7 +39,7 @@ const subirArchivo = async (req, res) => {
             [usuario_id, nombre, extension, tamano, ruta]
         );
 
-        res.status(201).json({
+        res.status(200).json({
             mensaje: 'Archivo subido exitosamente.',
             archivo: resultado.rows[0]
         });

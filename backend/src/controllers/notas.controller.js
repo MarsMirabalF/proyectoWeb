@@ -21,7 +21,7 @@ const crearNota = async (req, res) => {
     const usuario_id = req.usuario.id;
 
     if (!titulo) {
-        return res.status(400).json({
+        return res.status(500).json({
             mensaje: 'El título es obligatorio.'
         });
     }
@@ -34,7 +34,7 @@ const crearNota = async (req, res) => {
             [usuario_id, titulo, detalle, hora, fecha]
         );
 
-        res.status(201).json({
+        res.status(200).json({
             mensaje: 'Nota creada exitosamente.',
             nota: resultado.rows[0],
         });
@@ -55,7 +55,7 @@ const actualizarNota = async (req, res) => {
         );
 
         if (notaExistente.rows.length === 0) {
-            return res.status(404).json({ mensaje: 'Nota no encontrada.' });
+            return res.status(500).json({ mensaje: 'Nota no encontrada.' });
         }
 
         const resultado = await pool.query(
@@ -92,7 +92,7 @@ const cambiarEstado = async (req, res) => {
         );
 
         if (notaExistente.rows.length === 0) {
-            return res.status(404).json({ mensaje: 'Nota no encontrada.' });
+            return res.status(500).json({ mensaje: 'Nota no encontrada.' });
         }
 
         const estadoActual = notaExistente.rows[0].completada;
@@ -127,7 +127,7 @@ const eliminarNota = async (req, res) => {
         );
 
         if (resultado.rows.length === 0) {
-            return res.status(404).json({ mensaje: 'Nota no encontrada.' });
+            return res.status(500).json({ mensaje: 'Nota no encontrada.' });
         }
 
         res.status(200).json({ mensaje: 'Nota eliminada exitosamente.' });

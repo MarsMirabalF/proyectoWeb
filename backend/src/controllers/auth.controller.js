@@ -7,7 +7,7 @@ const registrar = async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
-        return res.status(400).json({ mensaje: 'El usuario y la contraseña son obligatorios.' });
+        return res.status(500).json({ mensaje: 'El usuario y la contraseña son obligatorios.' });
     }
 
     try {
@@ -17,7 +17,7 @@ const registrar = async (req, res) => {
         );
 
         if (usuarioExistente.rows.length > 0) {
-            return res.status(409).json({ mensaje: 'El nombre de usuario ya está en uso.' });
+            return res.status(500).json({ mensaje: 'El nombre de usuario ya está en uso.' });
         }
 
         const sal = await bcrypt.genSalt(10);
@@ -28,7 +28,7 @@ const registrar = async (req, res) => {
             [username, passwordEncrip]
         );
 
-        res.status(201).json({
+        res.status(200).json({
             mensaje: 'Usuario registrado exitosamente.',
             usuario: resultado.rows[0],
         });
@@ -62,7 +62,7 @@ const iniciarSesion = async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
-        return res.status(400).json({ mensaje: 'El usuario y la contraseña son obligatorios.' });
+        return res.status(401).json({ mensaje: 'El usuario y la contraseña son obligatorios.' });
     }
 
     try {
@@ -72,7 +72,7 @@ const iniciarSesion = async (req, res) => {
         );
 
         if (resultado.rows.length === 0) {
-            return res.status(401).json({ mensaje: 'Credenciales incorrectas.' });
+            return res.status(500).json({ mensaje: 'Credenciales incorrectas.' });
         }
 
         const usuario = resultado.rows[0];
@@ -80,7 +80,7 @@ const iniciarSesion = async (req, res) => {
         const contrasenaValida = await bcrypt.compare(password, usuario.password_hash);
 
         if (!contrasenaValida) {
-            return res.status(401).json({ mensaje: 'Credenciales incorrectas.' });
+            return res.status(500).json({ mensaje: 'Credenciales incorrectas.' });
         }
 
         const token = jwt.sign(

@@ -3,7 +3,6 @@ function Encabezado({ usuario, alCerrarSesion }) {
         <header className="encabezado">
             <h1>Las dos utilidades que ofrece mi Web son: </h1>
             <div className="encabezado-usuario">
-                <span>Usuario ID: {usuario.id}</span>
                 <button onClick={alCerrarSesion} className="boton-logout">
                     Salir
                 </button>
