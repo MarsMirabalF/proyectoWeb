@@ -269,21 +269,21 @@ muchas veces se uso el auto corrector de visual studio code, para corregir error
 
 
 
-### Tutorial como ejecutar el proyecto
+# Tutorial como ejecutar el proyecto
 Requisitos previos:
 - Node.js v18+
 - PostgreSQL v14+
 - pgAdmin
 - Clonar el repositorio
 
-# Backend
+### Backend
 ir al back:
 cd backend
 
-# Inicializar el proyecto
+### Inicializar el proyecto
 npm install
 
-# Instalar dependencias de producción
+### Instalar dependencias de producción
 npm install express
 npm install pg
 npm install dotenv
@@ -292,25 +292,25 @@ npm install jsonwebtoken
 npm install multer
 npm install cors
 
-# Instalar dependencias de desarrollo
+### Instalar dependencias de desarrollo
 npm install --save-dev nodemon
 
 
 
 
 
-# Frontend
+### Frontend
 Entrar a la carpeta:
 cd frontend
 
-# Instalar dependencias
+### Instalar dependencias
 npm install
 npm install axios
 npm install react-router-dom
 
 
 
-# Backup db
+### Backup db
 para esto debe abrir PGAdmin 4
 luego crearse una db con postgres 18
 ![alt text](image-4.png)
@@ -324,9 +324,9 @@ entrar a open query tool y desde ahi abrir el .sql como en la imagen:
 
 
 
-# Correr el back
+### Correr el back
 npm run dev
 
 
-# Correr el front
+### Correr el front
 npm start
