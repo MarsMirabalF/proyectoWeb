@@ -5,16 +5,40 @@ const path = require('path');
 const obtenerArchivos = async (req, res) => {
     const usuario_id = req.usuario.id;
 
+    const pagina = parseInt(req.query.pagina) || 1;
+    const limite = 12;
+    const desplazamiento = (pagina - 1) * limite;
+
     try {
-        const resultado = await pool.query(
-            'SELECT * FROM archivos WHERE usuario_id = $1 ORDER BY created_at DESC',
+        const totalResultado = await pool.query(
+            'SELECT COUNT(*) FROM archivos WHERE usuario_id = $1',
             [usuario_id]
         );
+        const total = parseInt(totalResultado.rows[0].count);
+        const totalPaginas = Math.ceil(total / limite);
 
-        res.status(200).json({ archivos: resultado.rows });
+        const resultado = await pool.query(
+            `SELECT * FROM archivos 
+            WHERE usuario_id = $1 
+            ORDER BY created_at DESC
+            LIMIT $2 OFFSET $3`,
+            [usuario_id, limite, desplazamiento]
+        );
+
+        res.status(200).json({
+            archivos: resultado.rows,
+            paginacion: {
+                total,
+                totalPaginas,
+                paginaActual: pagina,
+                limite
+            }
+        });
     } catch (error) {
-        console.error('Error al obtener archivos:', error);
-        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+        console.error('Error al obtener archivos D:', error);
+        res.status(500).json({ 
+            mensaje: 'Se murio el server (X o X) o no...'
+        });
     }
 };
 
@@ -22,7 +46,9 @@ const subirArchivo = async (req, res) => {
     const usuario_id = req.usuario.id;
 
     if (!req.file) {
-        return res.status(500).json({ mensaje: 'No se envió ningún archivo.' });
+        return res.status(500).json({ 
+            mensaje: 'No estas subiendo ningun archivo :P' 
+        });
     }
 
     try {
@@ -44,8 +70,10 @@ const subirArchivo = async (req, res) => {
             archivo: resultado.rows[0]
         });
     } catch (error) {
-        console.error('Error al subir archivo:', error);
-        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+        console.error('Por alguna razon rara no se pudo subir el archivo xd', error);
+        res.status(500).json({ 
+            mensaje: 'Se murio el server (X o X) o no...' 
+        });
     }
 };
 
@@ -55,7 +83,9 @@ const actualizarArchivo = async (req, res) => {
     const usuario_id = req.usuario.id;
 
     if (!nombre) {
-        return res.status(500).json({ mensaje: 'El nuevo nombre es obligatorio.' });
+        return res.status(500).json({ 
+            mensaje: 'El nuevo nombre es obligatorio o.o' 
+        });
     }
 
     try {
@@ -65,7 +95,9 @@ const actualizarArchivo = async (req, res) => {
         );
 
         if (archivoExistente.rows.length === 0) {
-            return res.status(500).json({ mensaje: 'Archivo no encontrado.' });
+            return res.status(500).json({ 
+                mensaje: 'Ese archivo no lo pude encontrar atte: el back' 
+            });
         }
 
         const archivo = archivoExistente.rows[0];
@@ -92,7 +124,9 @@ const actualizarArchivo = async (req, res) => {
         });
     } catch (error) {
         console.error('Error al actualizar archivo:', error);
-        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+        res.status(500).json({
+                mensaje: 'Se murio el server (X o X) o no...'
+            });
     }
 };
 
@@ -108,7 +142,9 @@ const eliminarArchivo = async (req, res) => {
         );
 
         if (archivoExistente.rows.length === 0) {
-            return res.status(404).json({ mensaje: 'Archivo no encontrado.' });
+            return res.status(404).json({ 
+                mensaje: 'archivo no encontrado soy el back confia' 
+            });
         }
 
         const archivo = archivoExistente.rows[0];
@@ -125,10 +161,14 @@ const eliminarArchivo = async (req, res) => {
 
         );
 
-        res.status(200).json({ mensaje: 'Archivo eliminado exitosamente.' });
+        res.status(200).json({ 
+            mensaje: 'Archivo eliminado exitosamente esto era para probar las rutas :).' 
+        });
     } catch (error) {
         console.error('Error al eliminar archivo:', error);
-        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+        res.status(500).json({
+            mensaje: 'Se murio el server (X o X) o quiza sea algo mas'
+        });
     }
 };
 
@@ -143,7 +183,9 @@ const descargarArchivo = async (req, res) => {
         );
 
         if (resultado.rows.length === 0) {
-            return res.status(500).json({ mensaje: 'Archivo no encontrado.' });
+            return res.status(500).json({ 
+                mensaje: 'Esto para probar las rutas :) y no se encontro el archivo' 
+            });
         }
 
         const archivo = resultado.rows[0];
@@ -152,8 +194,10 @@ const descargarArchivo = async (req, res) => {
         res.download(rutaAbsoluta, archivo.nombre);
 
     } catch (error) {
-        console.error('Error al descargar archivo:', error);
-        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+        console.error('Error al descargar archivo D: segun este error: ', error);
+        res.status(500).json({ 
+            mensaje: 'Se murio el server (X o X) o no se que paso'
+        });
     }
 };
 

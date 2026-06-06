@@ -3,16 +3,40 @@ const pool = require('../config/db');
 const obtenerNotas = async (req, res) => {
     const usuario_id = req.usuario.id;
 
+    const pagina = parseInt(req.query.pagina) || 1;
+    const limite = 2;
+    const desplazamiento = (pagina - 1) * limite;
+
     try {
-        const resultado = await pool.query(
-            'SELECT * FROM notas WHERE usuario_id = $1 ORDER BY created_at DESC',
+        const totalResultado = await pool.query(
+            'SELECT COUNT(*) FROM notas WHERE usuario_id = $1',
             [usuario_id]
         );
+        const total = parseInt(totalResultado.rows[0].count);
+        const totalPaginas = Math.ceil(total / limite);
 
-        res.status(200).json({ notas: resultado.rows });
+        const resultado = await pool.query(
+            `SELECT * FROM notas 
+            WHERE usuario_id = $1 
+            ORDER BY created_at DESC
+            LIMIT $2 OFFSET $3`,
+            [usuario_id, limite, desplazamiento]
+        );
+
+        res.status(200).json({
+            notas: resultado.rows,
+            paginacion: {
+                total,
+                totalPaginas,
+                paginaActual: pagina,
+                limite
+            }
+        });
     } catch (error) {
-        console.error('Error al obtener notas:', error);
-        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+        console.error('Error al obtener notas D: ', error);
+        res.status(500).json({ 
+            mensaje: 'Se murio el server (X o X)' 
+        });
     }
 };
 
@@ -22,7 +46,7 @@ const crearNota = async (req, res) => {
 
     if (!titulo) {
         return res.status(500).json({
-            mensaje: 'El título es obligatorio.'
+            mensaje: 'El título es obligatorio obviamente....'
         });
     }
 
@@ -40,7 +64,9 @@ const crearNota = async (req, res) => {
         });
     } catch (error) {
         console.error('Error al crear nota:', error);
-        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+        res.status(500).json({ 
+            mensaje: 'no se que pasa con el server...' 
+        });
     }
 };
 
@@ -55,7 +81,9 @@ const actualizarNota = async (req, res) => {
         );
 
         if (notaExistente.rows.length === 0) {
-            return res.status(500).json({ mensaje: 'Nota no encontrada.' });
+            return res.status(500).json({ 
+                mensaje: 'Nota no encontrada verifica la id' 
+            });
         }
 
         const resultado = await pool.query(
@@ -71,12 +99,14 @@ const actualizarNota = async (req, res) => {
         );
 
         res.status(200).json({
-            mensaje: 'Nota actualizada exitosamente.',
+            mensaje: 'Nota actualizada exitosamente todo nice',
             nota: resultado.rows[0],
         });
     } catch (error) {
         console.error('Error al actualizar nota:', error);
-        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+        res.status(500).json({ 
+            mensaje: 'Error interno del servidor por algo...' 
+        });
     }
 };
 
@@ -92,7 +122,9 @@ const cambiarEstado = async (req, res) => {
         );
 
         if (notaExistente.rows.length === 0) {
-            return res.status(500).json({ mensaje: 'Nota no encontrada.' });
+            return res.status(500).json({ 
+                mensaje: 'Nota no la encontre atte: el back' 
+            });
         }
 
         const estadoActual = notaExistente.rows[0].completada;
@@ -110,7 +142,9 @@ const cambiarEstado = async (req, res) => {
         });
     } catch (error) {
         console.error('Error al cambiar estado:', error);
-        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+        res.status(500).json({ 
+            mensaje: 'Error se cayo el server o algo mas XD' 
+        });
     }
 };
 
@@ -127,13 +161,19 @@ const eliminarNota = async (req, res) => {
         );
 
         if (resultado.rows.length === 0) {
-            return res.status(500).json({ mensaje: 'Nota no encontrada.' });
+            return res.status(500).json({ 
+                mensaje: 'Nota no encontrada verifica el id o oalgo mas' 
+            });
         }
 
-        res.status(200).json({ mensaje: 'Nota eliminada exitosamente.' });
+        res.status(200).json({ 
+            mensaje: 'Nota eliminada exitosamente todo nice' 
+        });
     } catch (error) {
-        console.error('Error al eliminar nota:', error);
-        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+        console.error('Error al eliminar nota segun esto', error);
+        res.status(500).json({ 
+            mensaje: 'Error interno del servidor se cayo o algo mas (X o X)' 
+        });
     }
 };
 
@@ -147,13 +187,17 @@ const obtenerNotaPorId = async (req, res) => {
         );
 
         if (resultado.rows.length === 0) {
-            return res.status(404).json({ mensaje: 'Nota no encontrada.' });
+            return res.status(404).json({
+                mensaje: 'Nota no encontrada verifica el id' 
+            });
         }
 
         res.status(200).json({ nota: resultado.rows[0] });
     } catch (error) {
-        console.error('Error al obtener nota:', error);
-        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+        console.error('Error al obtener nota segun este error: ', error);
+        res.status(500).json({ 
+            mensaje: 'Error interno del server hay que verificar la ruta quiza' 
+        });
     }
 };
 

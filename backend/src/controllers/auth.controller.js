@@ -7,7 +7,9 @@ const registrar = async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
-        return res.status(500).json({ mensaje: 'El usuario y la contraseña son obligatorios.' });
+        return res.status(500).json({ 
+            mensaje: 'El usuario y la contraseña son obligatorios obviamente...' 
+        });
     }
 
     try {
@@ -17,7 +19,9 @@ const registrar = async (req, res) => {
         );
 
         if (usuarioExistente.rows.length > 0) {
-            return res.status(500).json({ mensaje: 'El nombre de usuario ya está en uso.' });
+            return res.status(500).json({ 
+                mensaje: 'El nombre de usuario ya esta usa otro lo siento :(' 
+            });
         }
 
         const sal = await bcrypt.genSalt(10);
@@ -34,7 +38,9 @@ const registrar = async (req, res) => {
         });
     } catch (error) {
         console.error('Error al registrar usuario:', error);
-        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+        res.status(500).json({ 
+            mensaje: 'Error interno del servidor fuaaaa' 
+        });
     }
 };
 
@@ -48,13 +54,17 @@ const eliminarCuenta = async (req, res) => {
         );
 
         if (resultado.rows.length === 0) {
-            return res.status(404).json({ mensaje: 'Usuario no encontrado.' });
+            return res.status(404).json({ 
+                mensaje: 'Usuario no encontrado probar ruta :p' 
+            });
         }
 
         res.status(200).json({ mensaje: 'Cuenta eliminada permanentemente.' });
     } catch (error) {
-        console.error('Error al eliminar cuenta:', error);
-        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+        console.error('Error al eliminar cuenta pon bien los datos o no existe', error);
+        res.status(500).json({ 
+            mensaje: 'Error interno del servidor algun dato esta incorrecto puede ser...' 
+        });
     }
 };
 
@@ -62,7 +72,9 @@ const iniciarSesion = async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
-        return res.status(401).json({ mensaje: 'El usuario y la contraseña son obligatorios.' });
+        return res.status(401).json({ 
+            mensaje: 'El usuario y la contraseña son obligatorios obviamente' 
+        });
     }
 
     try {
@@ -72,7 +84,9 @@ const iniciarSesion = async (req, res) => {
         );
 
         if (resultado.rows.length === 0) {
-            return res.status(500).json({ mensaje: 'Credenciales incorrectas.' });
+            return res.status(500).json({ 
+                mensaje: 'No robes cuentas :v' 
+            });
         }
 
         const usuario = resultado.rows[0];
@@ -80,7 +94,9 @@ const iniciarSesion = async (req, res) => {
         const contrasenaValida = await bcrypt.compare(password, usuario.password_hash);
 
         if (!contrasenaValida) {
-            return res.status(500).json({ mensaje: 'Credenciales incorrectas.' });
+            return res.status(500).json({ 
+                mensaje: 'Credenciales incorrectas revisa la contra' 
+            });
         }
 
         const token = jwt.sign(
@@ -99,7 +115,9 @@ const iniciarSesion = async (req, res) => {
         });
     } catch (error) {
         console.error('Error al iniciar sesión:', error);
-        res.status(500).json({ mensaje: 'Error interno del servidor.' });
+        res.status(500).json({ 
+            mensaje: 'Error interno del server....' 
+        });
     }
 };
 
