@@ -2,8 +2,19 @@ import axios from 'axios';
 
 const URL_BASE = 'http://localhost:4000/api/notas';
 
-const obtenerNotas = async () => {
-    const respuesta = await axios.get(`${URL_BASE}/usuario`);
+let etagNotas = null;
+
+const obtenerNotas = async (pagina = 1, limite = 2) => {
+    const cabeceras = {};
+    if (etagNotas){
+        cabeceras['If-None-Match'] = etagNotas;
+    }
+
+    const respuesta = await axios.get(`${URL_BASE}/usuario`, {
+        params: { pagina, limite },
+        headers: cabeceras,
+    });
+    etagNotas = respuesta.headers['etag'];
     return respuesta.data;
 };
 

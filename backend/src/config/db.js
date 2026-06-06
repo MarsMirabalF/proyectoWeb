@@ -9,8 +9,8 @@ const pool=new Pool ({
                     database: process.env.DB_NOMBRE,
 });
 
-pool.connect();
-    pool.then(() => console.log('La base de datos esta funcionando por ahora todo nice :D'));
-        pool.catch((error) => console.error('Se perdio la conexion del back y la DB D:', error));
+pool.connect()
+    .then(() => console.log('La base de datos esta funcionando por ahora todo nice :D'))
+    .catch((error) => console.error('Se perdio la conexion del back y la DB D:', error));
 
 module.exports = pool;

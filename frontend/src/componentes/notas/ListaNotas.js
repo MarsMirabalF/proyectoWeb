@@ -9,15 +9,22 @@ function ListaNotas({ usuario }) {
     const [error, setError] = useState('');
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
     const [notaEditar, setNotaEditar] = useState(null);
+    const [paginaActual, setPaginaActual] = useState(1);
+    const [totalPaginas, setTotalPaginas] = useState(1);
+    const limite = 2;
+
 
     const cargarNotas = useCallback(async () => {
         try {
-            const datos = await notasServicio.obtenerNotas(usuario.id);
-            setNotas(datos.notas);
+            const datos = await notasServicio.obtenerNotas(paginaActual , limite);
+            if (datos !== null) {
+                setNotas(datos.notas);
+                setTotalPaginas(datos.paginacion.totalPaginas);
+            }
         } catch (err) {
-            setError('Error al cargar las notas.');
+            setError('Error al cargar las notas D:');
         }
-    }, [usuario.id]);
+    }, [paginaActual]);
 
     useEffect(() => {
         cargarNotas();
@@ -85,7 +92,31 @@ function ListaNotas({ usuario }) {
                     ))}
 
                 </div>
-            )}
+            )}      
+
+                            <br />
+
+                    {totalPaginas > 1 && (
+                        <div className="paginacion">
+                            <button
+                                onClick={() => setPaginaActual(p => p - 1)}
+                                disabled={paginaActual === 1}
+                                className="boton-pagina"
+                            >
+                                Atrasito
+                            </button>
+
+                            <span>{paginaActual}   /{totalPaginas}</span>
+
+                            <button
+                                onClick={() => setPaginaActual(p => p + 1)}
+                                disabled={paginaActual === totalPaginas}
+                                className="boton-pagina"
+                            >
+                                Adelantecito
+                            </button>
+                        </div>
+                    )}
             </>
             )}
         </div>

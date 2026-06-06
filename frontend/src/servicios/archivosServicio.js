@@ -2,8 +2,19 @@ import axios from 'axios';
 
 const URL_BASE = 'http://localhost:4000/api/archivos';
 
-const obtenerArchivos = async () => {
-    const respuesta = await axios.get(`${URL_BASE}`);
+let etagArchivos = null;
+
+const obtenerArchivos = async (pagina = 1, limite = 12) => {
+    const cabeceras = {};
+    if (etagArchivos){
+        cabeceras['If-None-Match'] = etagArchivos;
+    }
+
+    const respuesta = await axios.get(`${URL_BASE}`, {
+        params: { pagina, limite },
+        headers: cabeceras,
+    });
+    etagArchivos = respuesta.headers['etag'];
     return respuesta.data;
 };
 
