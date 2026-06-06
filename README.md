@@ -142,6 +142,21 @@ archivos controller.
 ![alt text](evidencias/image-12.png)
 
 
+Aqui no pude encontrar material interactivo de como usar el E-tag manualmente asi que pregunte a la IA chatGPT:
+
+![alt text](evidencias/image-1-1.png)
+
+Y me respondio con esto: 
+
+![alt text](evidencias/image-1-2.png)
+
+mi implementacion esta en etag.middleware.js backend\src\middlewares\etag.middleware.js
+Quiero recalcar que he desactivado la opcion automatica de express para manejar el e-tag. en la linea de codigo 11 de la clase
+app.js del backend backend\src\app.js esto para que el e-tag solo tenga sentido en las rutas GET de archivos y notas, osea listar
+las notas. Sino express solo genera el e-tag automatico en los headers, como yo ya genero mi propio etag no es necesario,
+entonces lo desactive.
+
+
 # Parte del Drive
 
 ## Multer
@@ -177,7 +192,7 @@ https://github.com/bezkoder/node-js-express-login-example/blob/master/app/middle
 Y mi propia implementacion corresponde a la clase auth.middleware.js en la direccion ..\backend\src\middlewares\auth.middleware.js
 
 
-## Apoyo IA
+## File System
 Se uso la ia copilot para ver como seria una implementacion de file system:
 Yo adapte lo siguiente en la clase multer.js en la ubicacion backend\src\config\multer.js
 

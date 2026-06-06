@@ -9,7 +9,7 @@ code {
 
 .pantalla-dividida {
     display: flex;
-    height: calc(100vh - 60px);
+    height: 85vh;
 }
 
 .panel-izquierdo {

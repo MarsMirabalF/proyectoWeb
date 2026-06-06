@@ -8,6 +8,8 @@ const rutasArchivos = require('./routes/archivos.routes');
 
 const app = express();
 
+app.set('etag', true);
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
