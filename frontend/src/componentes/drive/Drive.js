@@ -6,15 +6,21 @@ function Drive({ usuario }) {
     const [error, setError] = useState('');
     const [nombreEditar, setNombreEditar] = useState('');
     const [idEditando, setIdEditando] = useState(null);
+    const [paginaActual, setPaginaActual] = useState(1);
+    const [totalPaginas, setTotalPaginas] = useState(1);
+    const limite = 2;
 
     const cargarArchivos = useCallback(async () => {
         try {
-            const datos = await archivosServicio.obtenerArchivos();
-            setArchivos(datos.archivos);
+            const datos = await archivosServicio.obtenerArchivos(paginaActual, limite);
+            if (datos !== null) {
+                setArchivos(datos.archivos);
+                setTotalPaginas(datos.paginacion.totalPaginas);
+            }
         } catch (err) {
             setError('Error al cargar archivos.');
         }
-    }, []);
+    }, [paginaActual]);
 
     useEffect(() => {
         cargarArchivos();
@@ -154,6 +160,32 @@ function Drive({ usuario }) {
                     </tbody>
                 </table>
             )}
+
+
+                    <br />
+            {totalPaginas > 1 && (
+    <div className="paginacion">
+        <button
+            onClick={() => setPaginaActual(p => p - 1)}
+            disabled={paginaActual === 1}
+            className="boton-pagina"
+        >
+            Atrasito
+        </button>
+        
+
+
+        <span>{paginaActual}    /{totalPaginas}</span>
+
+        <button
+            onClick={() => setPaginaActual(p => p + 1)}
+            disabled={paginaActual === totalPaginas}
+            className="boton-pagina"
+        >
+            Adelantecito
+        </button>
+    </div>
+)}
         </div>
     );
 }

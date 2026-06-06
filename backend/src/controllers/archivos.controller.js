@@ -6,7 +6,7 @@ const obtenerArchivos = async (req, res) => {
     const usuario_id = req.usuario.id;
 
     const pagina = parseInt(req.query.pagina) || 1;
-    const limite = 12;
+    const limite = 2;
     const desplazamiento = (pagina - 1) * limite;
 
     try {
