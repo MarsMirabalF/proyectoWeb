@@ -219,9 +219,9 @@ notasServicio.js :   frontend\src\servicios\notasServicio.js
 
 
 
-# Parte del Drive
+## Parte del Drive
 
-## Multer
+### Multer
 
 El siguiente tutorial de mi youtuber favorito de programación, Fazt. Si bien él sube imágenes, yo lo utilicé para archivos y explica muy bien qué es Multer:
 https://www.youtube.com/watch?v=AbJ-y2vZgBs
@@ -238,13 +238,13 @@ https://github.com/JePaFeNet/crud-node.js/tree/v11-multer
 Para la instalación de Multer y su configuración básica se utilizó el tutorial anterior. Sin embargo, los ejemplos de referencia utilizados provienen de la siguiente página:
 https://www.digitalocean.com/community/tutorials/nodejs-uploading-files-multer-express
 
-## Drive por Usuario
+### Drive por Usuario
 Para intentar implementar la idea de que cada usuario tenga su propio drive, me basé en el siguiente repositorio de GitHub que ya implementó esta funcionalidad usando file system, intente buscar en youtube y no encontre tutoriales relacionados:
 Esta es la clase especifica que use toda la clase en general como referencia.
 https://github.com/moahnaf11/File-Uploader/blob/main/controllers/folderController.js
 Y mi propia implementacion corresponde a la clase archivos.controller.js en la direccion ..\backend\src\controllers\archivos.controller.js
 
-## Inicio de sesion
+### Inicio de sesion
 Para saber el funcionamiento y implementacion de JWT el siguiente tutorial tambien se uso para react en el frontend:
 https://youtu.be/zBbqrcvdJjQ?si=SFEtDnktYmzVptCG
 
@@ -254,7 +254,7 @@ https://github.com/bezkoder/node-js-express-login-example/blob/master/app/middle
 Y mi propia implementacion corresponde a la clase auth.middleware.js en la direccion ..\backend\src\middlewares\auth.middleware.js
 
 
-## File System
+### File System
 Se uso la ia copilot para ver como seria una implementacion de file system:
 Yo adapte lo siguiente en la clase multer.js en la ubicacion backend\src\config\multer.js
 
@@ -284,18 +284,6 @@ archivos.controller en la funcion obtener archivos: backend\src\controllers\arch
 
 
 
-
-
-
-## Paginacion en el frontend
-Para la parte de paginacion en el front use de referencia el siguiente repositorio 
-especificamente esta clase de aqui api.js:
-
-https://github.com/JHOAN-FIGUEROA/compuoriente/blob/83ba897e92f4dc1095e0014fb8017c4ccf2d4fd5/src/api.js#L132
-
-Y mi propia implementacion se encuentra en:
-notas.controller en la funcion de servicio de notas: frontend\src\servicios\notasServicio.js
-archivos.controller en la funcion de servicio de archivos: frontend\src\servicios\archivosServicio.js
 
 
 
@@ -336,7 +324,6 @@ Tutorial JSX este tuto esta bien para lo basico, ver completo completo
 https://www.youtube.com/watch?v=yJZx2q50s_g
 
 
-
 ## Axios
 
 Tutorial Axios - Fazt Code
@@ -345,7 +332,6 @@ https://www.youtube.com/watch?v=VcJly0VxkXs
 Documentación oficial
 La saqué del video de Fazt que dije antes:
 https://axios-http.com/es/docs/intro
-
 
 
 ## Estados (useState) y Efectos (useEffect)
@@ -360,13 +346,11 @@ el tutorial recomienda revisar lo siguiente yo lo revise muy basico
 
 
 
-
 ## Subida de archivos desde React
 
 El repositorio aqui para hacer que se muestre desde react las funcionalidades del drive en backend, basandome aqui para hacer el componente:
 https://github.com/bradtraversy/react_file_uploader/blob/master/client/src/components/FileUpload.js
 Y mi propia implementacion corresponde a la clase Drive.js en la direccion ..\frontend\src\componentes\drive\Drive.js
-
 
 
 ## Inicio de sesion 
@@ -376,12 +360,18 @@ Para saber el funcionamiento y implementacion de JWT el siguiente tutorial tambi
 https://youtu.be/zBbqrcvdJjQ?si=SFEtDnktYmzVptCG
 
 
-
-
-
-
-
 ## Paginacion en el frontend
+Para la parte de paginacion en el front use de referencia el siguiente repositorio 
+especificamente esta clase de aqui api.js:
+
+https://github.com/JHOAN-FIGUEROA/compuoriente/blob/83ba897e92f4dc1095e0014fb8017c4ccf2d4fd5/src/api.js#L132
+
+Y mi propia implementacion se encuentra en:
+notas.controller en la funcion de servicio de notas: frontend\src\servicios\notasServicio.js
+archivos.controller en la funcion de servicio de archivos: frontend\src\servicios\archivosServicio.js
+
+
+
 
 
 
@@ -409,6 +399,9 @@ muchas veces se uso el auto corrector de visual studio code, para corregir error
 
 
 
+
+
+
 # Tutorial de instalación y ejecución
 Si ya tiene los requesitos previos no es necesario que lo vuelva a hacer.
 
@@ -421,6 +414,7 @@ Si ya tiene los requesitos previos no es necesario que lo vuelva a hacer.
 - git version 2.51.0.windows.2: https://git-scm.com/downloads
 
 ### Requisitos previos en linux:
+Los siguientes comandos fueron generados con ayuda de la IA claude para la instalacion en linux.
 - Node.js v22 via nvm (recomendado)
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 source ~/.bashrc
@@ -461,6 +455,34 @@ sudo apt install -y pgadmin4
 - Git
 sudo apt install -y git
 
+
+### Requisitos previos en macOS:
+Los siguientes comandos fueron generados con ayuda de la IA claude para la instalacion en mac.
+
+- Homebrew (gestor de paquetes, necesario para todo lo demás)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+- Node.js v22 via nvm (recomendado)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+source ~/.zshrc
+nvm install 22
+nvm use 22
+
+- PostgreSQL 18
+brew install postgresql@18
+brew services start postgresql@18
+
+- pgAdmin 4
+brew install --cask pgadmin4
+
+- mkcert v1.4.4
+brew install mkcert
+brew install nss
+mkcert -install
+
+- Git (normalmente ya viene en mac, pero por si acaso)
+brew install git
+
 ## Clonar el repositorio
 Esto es igual en windows y linux:
 git clone https://github.com/MarsMirabalF/proyectoWeb
@@ -483,7 +505,8 @@ luego darle click derecho a la db creada y se abrira esto:
 ![alt text](evidencias/image.png)
 
 luego dar click derecho a la db creada y entrar a restore y desde ahi abrir el backupDB.sql 
-en ..\proyectoFinal\backupDB.sql o la direccion en linux seria en: ../proyectoFinal/backupDB.sql 
+en windows ..\proyectoFinal\backupDB.sql 
+o la direccion en linux y mac seria en: ../proyectoFinal/backupDB.sql 
 como en la imagen verifica la direccion:
 
 ![alt text](evidencias/image-3.png)
@@ -519,8 +542,8 @@ por tanto este backupDB,sql ya tiene las direcciones del ultimo commit en el rep
 todo deberia funcionar bien.
 
 ## Instalar certificados HTTPS
-Esto es igual en windows y linux:
-Instala la autoridad certificadora en tu sistema, solo debe hacerse una vez:
+Esto es igual en windows, linux y mac:
+Instala la autoridad certificadora en tu sistema solo debe hacerse una vez:
 mkcert -install
 
 ### Genera los certificados para el backend:
@@ -539,7 +562,7 @@ npm install
 
 ## Crear el archivo `.env` en la carpeta backend
 Crea un archivo llamado .env dentro de la carpeta backend y copia lo siguiente:
-(ten en cuenta cambiar la contraseña con la que hayas creado postgres,
+(ten en cuenta cambiar la contraseña con la que hayas creado postgres
 de JWT no es necesario cambiar nada).
 
 PUERTO=4000
