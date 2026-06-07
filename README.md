@@ -489,7 +489,7 @@ Esto es igual en windows y linux:
 git clone https://github.com/MarsMirabalF/proyectoWeb
 <br>
 cd proyectoWeb
-<br>
+
 
 ### Backup db
 Esto es igual en windows y linux:
@@ -548,21 +548,18 @@ mkcert -install
 <br>
 
 ### Genera los certificados para el backend:
-<br>
 cd backend
 <br>
 mkcert -key-file key.pem -cert-file cert.pem localhost
 <br>
 
 ### Genera los certificados para el frontend:
-<br>
 cd ../frontend
 <br>
 mkcert -key-file key.pem -cert-file cert.pem localhost
 <br>
 
 ## Configurar el Backend
-<br>
 cd ../backend
 <br>
 
