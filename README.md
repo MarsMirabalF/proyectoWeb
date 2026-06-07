@@ -28,6 +28,8 @@ npm run dev
 
 ## Rutas para Probar
 
+### Autenticación
+
 ### Registrar usuario
 **POST**
 http://localhost:4000/api/auth/registrar
@@ -37,9 +39,41 @@ Body
     "password": "123456"
 }
 
+### Iniciar sesión
+**POST**
+https://localhost:4000/api/auth/login
+Body
+{
+    "username": "carlos",
+    "password": "123456"
+}
+
+### Eliminar cuenta
+**DELETE**
+https://localhost:4000/api/auth/eliminar-cuenta
+Header
+Authorization: Bearer (token)
+
+---
+
+### Notas
+Todas requieren Header: Authorization: Bearer (token)
+
+### Ver todas mis notas
+**GET**
+https://localhost:4000/api/notas/usuario
+
+### Ver todas mis notas con paginación
+**GET**
+https://localhost:4000/api/notas/usuario?pagina=1&limite=2
+
+### Ver una nota específica
+**GET**
+https://localhost:4000/api/notas/(id de la nota)
+
 ### Crear nota
 **POST**
-http://localhost:4000/api/notas
+https://localhost:4000/api/notas
 Body
 {
     "titulo": "Comprar víveres",
@@ -48,52 +82,57 @@ Body
     "fecha": "2024-06-15"
 }
 
-### Ver todas las notas de un usuario
-**GET**
-http://localhost:4000/api/notas/usuario/(id USUARIO)
-
 ### Editar una nota
 **PUT**
-http://localhost:4000/api/notas/(id de la nota)
+https://localhost:4000/api/notas/(id de la nota)
 Body
 {
     "titulo": "Comprar víveres urgente",
     "detalle": "Leche, pan, huevos y mantequilla :D"
 }
 
-### Ver una nota específica
-**GET**
-http://localhost:4000/api/notas/(ID de la nota)
-
 ### Cambiar estado de una nota
 **PATCH**
-http://localhost:4000/api/notas/(id de la nota)/estado
+https://localhost:4000/api/notas/(id de la nota)/estado
 
 ### Eliminar nota
 **DELETE**
-http://localhost:4000/api/notas/(id de la nota)
+https://localhost:4000/api/notas/(id de la nota)
 
-### Eliminar usuario
-**DELETE**
-http://localhost:4000/api/auth/eliminar-cuenta/7
+---
 
-### Ver todos los archivos de un usuario
+### Archivos
+Todas requieren Header: Authorization: Bearer (token)
+
+### Ver todos mis archivos
 **GET**
-http://localhost:4000/api/archivos/usuario/(id USUARIO)
+https://localhost:4000/api/archivos
+
+### Ver todos mis archivos con paginación
+**GET**
+https://localhost:4000/api/archivos?pagina=1&limite=12
 
 ### Subir archivo
 **POST**
-http://localhost:4000/api/archivos/subir/(id USUARIO)
-**Body (form-data)**
-archivo: seleccionar archivo
+https://localhost:4000/api/archivos/subir
+Body (form-data)
+archivo: archivo.txt
 
-### Actualizar información de un archivo
+### Actualizar nombre de un archivo
 **PUT**
-http://localhost:4000/api/archivos/(id del archivo)
+https://localhost:4000/api/archivos/(id del archivo)
+Body
+{
+    "nombre": "nuevo_nombre.txt"
+}
+
+### Descargar archivo
+**GET**
+https://localhost:4000/api/archivos/descargar/(id del archivo)
 
 ### Eliminar archivo
 **DELETE**
-http://localhost:4000/api/archivos/(id del archivo)
+https://localhost:4000/api/archivos/(id del archivo)
 
 
 
