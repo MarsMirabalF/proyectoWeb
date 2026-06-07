@@ -485,8 +485,11 @@ brew install git
 
 ## Clonar el repositorio
 Esto es igual en windows y linux:
+<br>
 git clone https://github.com/MarsMirabalF/proyectoWeb
+<br>
 cd proyectoWeb
+<br>
 
 ### Backup db
 Esto es igual en windows y linux:
@@ -540,38 +543,50 @@ todo deberia funcionar bien.
 ## Instalar certificados HTTPS
 Esto es igual en windows, linux y mac:
 Instala la autoridad certificadora en tu sistema solo debe hacerse una vez:
+<br>
 mkcert -install
+<br>
 
 ### Genera los certificados para el backend:
+<br>
 cd backend
+<br>
 mkcert -key-file key.pem -cert-file cert.pem localhost
+<br>
 
 ### Genera los certificados para el frontend:
+<br>
 cd ../frontend
+<br>
 mkcert -key-file key.pem -cert-file cert.pem localhost
+<br>
 
 ## Configurar el Backend
+<br>
 cd ../backend
+<br>
 
 ### Instalar dependencias
+<br>
 npm install
+<br>
 
 ## Crear el archivo `.env` en la carpeta backend
 Crea un archivo llamado .env dentro de la carpeta backend y copia lo siguiente:
 (ten en cuenta cambiar la contraseña con la que hayas creado postgres
 de JWT no es necesario cambiar nada).
+<br>
+PUERTO=4000<br>
+DB_USUARIO=postgres<br>
+DB_CONTRASENA=tu_contrasena_de_postgresql<br>
+DB_HOST=localhost<br>
+DB_PUERTO=5432<br>
+DB_NOMBRE=proyectoWeb<br>
+JWT_SECRETO=una_clave_secreta_muy_larga_y_dificil<br>
+JWT_EXPIRA_EN=8h<br>
 
-PUERTO=4000
-DB_USUARIO=postgres
-DB_CONTRASENA=tu_contrasena_de_postgresql
-DB_HOST=localhost
-DB_PUERTO=5432
-DB_NOMBRE=proyectoWeb
-JWT_SECRETO=una_clave_secreta_muy_larga_y_dificil
-JWT_EXPIRA_EN=8h
-
-### Correr el backend
-npm run dev
+### Correr el backend<br>
+npm run dev<br>
 
 Se deberia ver algo asi al final de correr el backend:
 
@@ -579,22 +594,22 @@ Servidor HTTPS corriendo en https://localhost:4000
 La base de datos esta funcionando por ahora todo nice :D
 
 ## Configurar el Frontend
-Abre una nueva terminal y entra a la carpeta frontend:
-cd ../frontend
+Abre una nueva terminal y entra a la carpeta frontend:<br>
+cd ../frontend<br>
 
-### Instalar dependencias
-npm install
+### Instalar dependencias<br>
+npm install<br>
 
 ## Crear el archivo `.env` en la carpeta frontend
 Crea un archivo llamado .env dentro de la carpeta frontend y copia lo siguiente:
-(no es necesario que cambies nada).
+(no es necesario que cambies nada).<br>
+<br>
+HTTPS=true<br>
+SSL_CRT_FILE=cert.pem<br>
+SSL_KEY_FILE=key.pem<br>
 
-HTTPS=true
-SSL_CRT_FILE=cert.pem
-SSL_KEY_FILE=key.pem
-
-### Correr el frontend
-npm start
+### Correr el frontend<br>
+npm start<br>
 
 Se deberia ver algo asi al final de correr el frontend:
 
