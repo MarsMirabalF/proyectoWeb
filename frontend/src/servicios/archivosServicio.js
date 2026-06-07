@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL_BASE = 'http://localhost:4000/api/archivos';
+const URL_BASE = 'https://localhost:4000/api/archivos';
 
 let etagArchivos = null;
 

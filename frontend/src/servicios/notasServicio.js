@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL_BASE = 'http://localhost:4000/api/notas';
+const URL_BASE = 'https://localhost:4000/api/notas';
 
 let etagNotas = null;
 

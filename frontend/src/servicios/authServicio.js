@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL_BASE = 'http://localhost:4000/api/auth';
+const URL_BASE = 'https://localhost:4000/api/auth';
 
 const registrar = async (username, password) => {
     const respuesta = await axios.post(`${URL_BASE}/registrar`, { username, password });
