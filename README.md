@@ -444,24 +444,24 @@ en ..\proyectoFinal\backupDB.sql en como en la imagen:
 
 Debe de abrir y poner el archivo backupDB.sql en filename:
 
-![alt text](image-1-10.png)
+![alt text](evidencias/image-1-10.png)
 
 Tal vez no pueda ver el .sql para eso debe activar para ver los archivos .sql como en la imagen:
 
-![alt text](image-2-20.png)
-![alt text](image-3-30.png)
+![alt text](evidencias/image-2-20.png)
+![alt text](evidencias/image-3-30.png)
 
 Habra el archivo y dele a abrir:
 
-![alt text](image-4-40.png)
+![alt text](evidencias/image-4-40.png)
 
 Luego debe deslizar hacia abajo dando click en role name para poner el siguiente usario:
 
-![alt text](image-00.png)
+![alt text](evidencias/image-00.png)
 
 Asi deberia quedar y dele a restore:
 
-![alt text](image-5-50.png)
+![alt text](evidencias/image-5-50.png)
 
 y eso seria todo.
 
