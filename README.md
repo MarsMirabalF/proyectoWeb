@@ -1,8 +1,7 @@
 # Mi Proyecto Web
 
-## Requisitos Previos
-
-Para usar el proyecto se requiere tener instalado PostgreSQL 18.
+El proyecto corre en localhost con https el tutorial de despliegue del proyecto se encuentra al final
+primero se mostrara toda la informacion y fuentes que se usaron en el proyecto.
 
 ## Diseño de la Base de Datos
 
@@ -410,72 +409,92 @@ muchas veces se uso el auto corrector de visual studio code, para corregir error
 
 
 
-# Tutorial como ejecutar el proyecto
+# Tutorial de instalación y ejecución para windows 11
 Requisitos previos:
-- Node.js v18+
-- PostgreSQL v14+
-- pgAdmin
-- Clonar el repositorio
+- Node.js v22.17.0 en: https://nodejs.org
+- PostgreSQL 18 en: https://www.postgresql.org/download
+(importante guardar la contraseña de postgres)
+- pgAdmin (viene con la instalacion de postgres normalmente) pero si no lo tiene esta en: https://www.pgadmin.org/download
+- mkcert v1.4.4 https://github.com/FiloSottile/mkcert/releases
+- git version 2.51.0.windows.2: https://git-scm.com/downloads
 
-### Backend
-ir al back:
+## Clonar el repositorio
+git clone https://github.com/MarsMirabalF/proyectoWeb
+cd proyectoFinal
+
+## Instalar certificados HTTPS
+Instala la autoridad certificadora en tu sistema, solo debe hacerse una vez:
+mkcert -install
+
+### Genera los certificados para el backend:
 cd backend
+mkcert -key-file key.pem -cert-file cert.pem localhost
 
-### Inicializar el proyecto
-npm install
+### Genera los certificados para el frontend:
+cd ../frontend
+mkcert -key-file key.pem -cert-file cert.pem localhost
 
-### Instalar dependencias de producción
-npm install express
-npm install pg
-npm install dotenv
-npm install bcryptjs
-npm install jsonwebtoken
-npm install multer
-npm install cors
-
-### Instalar dependencias de desarrollo
-npm install --save-dev nodemon
-
-
-
-
-
-### Frontend
-Entrar a la carpeta:
-cd frontend
+## Configurar el Backend
+cd ../backend
 
 ### Instalar dependencias
 npm install
-npm install axios
-npm install react-router-dom
 
+## Crear el archivo `.env` en la carpeta backend
+Crea un archivo llamado .env dentro de la carpeta backend y copia lo siguiente:
+(ten en cuenta cambiar la contraseña con la que hayas creado postgres,
+de JWT no es necesario cambiar nada).
 
+PUERTO=4000
+DB_USUARIO=postgres
+DB_CONTRASENA=tu_contrasena_de_postgresql
+DB_HOST=localhost
+DB_PUERTO=5432
+DB_NOMBRE=proyectoWeb
+JWT_SECRETO=una_clave_secreta_muy_larga_y_dificil
+JWT_EXPIRA_EN=8h
 
-### Backup db
-para esto debe abrir PGAdmin 4
-luego crearse una db con postgres 18
-
-![alt text](evidencias/image-4.png)
-
-llamarla: "proyectoWeb" y darle a save
-
-![alt text](evidencias/image-5.png)
-
-luego darle click derecho a la db creada se abrira esto:
-
-![alt text](evidencias/image.png)
-
-entrar a open query tool y desde ahi abrir el .sql como en la imagen:
-
-![alt text](evidencias/image-3.png)
-
-
-
-
-
-### Correr el back
+### Correr el backend
 npm run dev
 
+Se deberia ver algo asi al final de correr el backend:
 
-### Correr el front
+Servidor HTTPS corriendo en https://localhost:4000
+La base de datos esta funcionando por ahora todo nice :D
+
+## Configurar el Frontend
+Abre una nueva terminal y entra a la carpeta frontend:
+cd proyectoFinal/frontend
+
+### Instalar dependencias
+npm install
+
+## Crear el archivo `.env` en la carpeta frontend
+Crea un archivo llamado .env dentro de la carpeta frontend y copia lo siguiente:
+(no es necesario que cambies nada).
+
+HTTPS=true
+SSL_CRT_FILE=cert.pem
+SSL_KEY_FILE=key.pem
+
+### Correr el frontend
 npm start
+
+Se deberia ver algo asi al final de correr el frontend:
+
+Compiled successfully!
+
+You can now view frontend in the browser.
+
+  Local:            https://localhost:3000
+  On Your Network:  https://192.168.56.1:3000
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+webpack compiled successfully
+
+## Iniciar sesión con los datos de prueba
+La base de datos ya viene con varios usuarios de prueba aqui dejo algunos:
+Usuario: vladimir  Contraseña: 123456     
+Usuario: marcelo   Contraseña: 123456     

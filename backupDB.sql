@@ -2,12 +2,12 @@
 -- PostgreSQL database dump
 --
 
-\restrict 4B78cEbbBhIx1oty0zimt3M7zreKydbs2ET3t3aCd28TCVnvV0Ffk6qKbcwVsAz
+\restrict jz3off8wSWZreLoGqcPq1oaOE5tT91v9xrQhts2SMuNWdiPJfBaKlQOjLv8LuCw
 
 -- Dumped from database version 18.4
 -- Dumped by pg_dump version 18.4
 
--- Started on 2026-06-01 23:11:55
+-- Started on 2026-06-07 11:00:47
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -209,14 +209,15 @@ COPY public.archivos (id, usuario_id, nombre, extension, tamano, ruta, created_a
 17	10	b.cpp	.cpp	443	repos/usuario_10/1780368843717_b.cpp	2026-06-02 02:54:03.902282	2026-06-02 02:54:03.902282
 18	10	133659618506342493.jpg	.jpg	1863169	repos/usuario_10/1780368854027_133659618506342493.jpg	2026-06-02 02:54:14.170301	2026-06-02 02:54:14.170301
 19	11	133861712605634268.jpg	.jpg	1907512	repos/usuario_11/1780368926018_133861712605634268.jpg	2026-06-02 02:55:26.217716	2026-06-02 02:55:26.217716
-20	15	marcelo.tex	.tex	4833	repos/usuario_15/1780369255345_marcelo.tex	2026-06-02 03:00:55.513994	2026-06-02 03:00:55.513994
 21	15	investigacion_bioqfarma_iomt (1).docx	.docx	749201	repos/usuario_15/1780369276024_investigacion_bioqfarma_iomt_(1).docx	2026-06-02 03:01:16.16927	2026-06-02 03:01:16.16927
 22	16	a2.cpp	.cpp	1363	repos/usuario_16/1780369359493_a2.cpp	2026-06-02 03:02:39.634602	2026-06-02 03:02:39.634602
 23	16	b2.cpp	.cpp	4160	repos/usuario_16/1780369362741_b2.cpp	2026-06-02 03:02:42.75895	2026-06-02 03:02:42.75895
 24	16	c2.cpp	.cpp	3462	repos/usuario_16/1780369367057_c2.cpp	2026-06-02 03:02:47.064631	2026-06-02 03:02:47.064631
 25	17	134095221829951228.jpg	.jpg	2140967	repos/usuario_17/1780369739644_134095221829951228.jpg	2026-06-02 03:09:00.008385	2026-06-02 03:09:00.008385
 26	17	investigacion_bioqfarma_iomt (1).docx	.docx	749201	repos/usuario_17/1780369750551_investigacion_bioqfarma_iomt_(1).docx	2026-06-02 03:09:10.679394	2026-06-02 03:09:10.679394
-27	17	marcelo.tex	.tex	4833	repos/usuario_17/1780369755229_marcelo.tex	2026-06-02 03:09:15.232219	2026-06-02 03:09:15.232219
+20	15	marcelo.tex	.tex	4833	repos/usuario_15/1780412781999_marcelo.tex.tex	2026-06-02 03:00:55.513994	2026-06-02 15:06:22.003104
+34	17	marcelo.tex	.tex	4833	repos/usuario_17/1780795814506_marcelo.tex	2026-06-07 01:30:14.510704	2026-06-07 01:30:14.510704
+35	17	meteorologia_confitera.txt	.txt	1856	repos/usuario_17/1780795819533_meteorologia_confitera.txt	2026-06-07 01:30:19.537893	2026-06-07 01:30:19.537893
 \.
 
 
@@ -267,7 +268,7 @@ COPY public.usuarios (id, username, password_hash, created_at) FROM stdin;
 -- Name: archivos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.archivos_id_seq', 27, true);
+SELECT pg_catalog.setval('public.archivos_id_seq', 35, true);
 
 
 --
@@ -276,7 +277,7 @@ SELECT pg_catalog.setval('public.archivos_id_seq', 27, true);
 -- Name: notas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notas_id_seq', 59, true);
+SELECT pg_catalog.setval('public.notas_id_seq', 63, true);
 
 
 --
@@ -285,7 +286,7 @@ SELECT pg_catalog.setval('public.notas_id_seq', 59, true);
 -- Name: usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usuarios_id_seq', 17, true);
+SELECT pg_catalog.setval('public.usuarios_id_seq', 18, true);
 
 
 --
@@ -342,11 +343,11 @@ ALTER TABLE ONLY public.notas
     ADD CONSTRAINT notas_usuario_id_fkey FOREIGN KEY (usuario_id) REFERENCES public.usuarios(id) ON DELETE CASCADE;
 
 
--- Completed on 2026-06-01 23:11:55
+-- Completed on 2026-06-07 11:00:47
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 4B78cEbbBhIx1oty0zimt3M7zreKydbs2ET3t3aCd28TCVnvV0Ffk6qKbcwVsAz
+\unrestrict jz3off8wSWZreLoGqcPq1oaOE5tT91v9xrQhts2SMuNWdiPJfBaKlQOjLv8LuCw
 
