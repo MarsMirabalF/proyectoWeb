@@ -409,8 +409,10 @@ muchas veces se uso el auto corrector de visual studio code, para corregir error
 
 
 
-# Tutorial de instalación y ejecución para windows 11
-Requisitos previos:
+# Tutorial de instalación y ejecución
+Si ya tiene los requesitos previos no es necesario que lo vuelva a hacer.
+
+### Requisitos previos en windows 11:
 - Node.js v22.17.0 en: https://nodejs.org
 - PostgreSQL 18 en: https://www.postgresql.org/download
 (importante guardar la contraseña de postgres)
@@ -418,11 +420,54 @@ Requisitos previos:
 - mkcert v1.4.4 https://github.com/FiloSottile/mkcert/releases
 - git version 2.51.0.windows.2: https://git-scm.com/downloads
 
+### Requisitos previos en linux:
+- Node.js v22 via nvm (recomendado)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+source ~/.bashrc
+nvm install 22
+nvm use 22
+
+- PostgreSQL 18
+sudo apt install -y curl ca-certificates
+sudo install -d /usr/share/postgresql-common/pgdg
+sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail \
+  https://www.postgresql.org/media/keys/ACCC4CF8.asc
+sudo sh -c 'echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] \
+  https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" \
+  > /etc/apt/sources.list.d/pgdg.list'
+sudo apt update
+sudo apt install -y postgresql-18
+
+- pgAdmin 4
+curl -fsS https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor \
+  -o /usr/share/keyrings/packages-pgadmin-org.gpg
+sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/packages-pgadmin-org.gpg] \
+  https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" \
+  > /etc/apt/sources.list.d/pgadmin4.list'
+sudo apt update
+sudo apt install -y pgadmin4
+
+- mkcert v1.4.4
+    - Dependencia necesaria para mkcert en linux
+    sudo apt install -y libnss3-tools
+
+    - Descargar el binario para Linux x64
+    curl -Lo mkcert https://github.com/FiloSottile/mkcert/releases/download/v1.4.4/mkcert-v1.4.4-linux-amd64
+
+    - Darle permisos y moverlo al PATH 
+    chmod +x mkcert
+    sudo mv mkcert /usr/local/bin/mkcert
+
+- Git
+sudo apt install -y git
+
 ## Clonar el repositorio
+Esto es igual en windows y linux:
 git clone https://github.com/MarsMirabalF/proyectoWeb
 cd proyectoWeb
 
 ### Backup db
+Esto es igual en windows y linux:
 Para esto debe abrir PGAdmin
 luego crearse una db con postgres 18
 
@@ -438,7 +483,8 @@ luego darle click derecho a la db creada y se abrira esto:
 ![alt text](evidencias/image.png)
 
 luego dar click derecho a la db creada y entrar a restore y desde ahi abrir el backupDB.sql 
-en ..\proyectoFinal\backupDB.sql en como en la imagen:
+en ..\proyectoFinal\backupDB.sql o la direccion en linux seria en: ../proyectoFinal/backupDB.sql 
+como en la imagen verifica la direccion:
 
 ![alt text](evidencias/image-3.png)
 
@@ -473,6 +519,7 @@ por tanto este backupDB,sql ya tiene las direcciones del ultimo commit en el rep
 todo deberia funcionar bien.
 
 ## Instalar certificados HTTPS
+Esto es igual en windows y linux:
 Instala la autoridad certificadora en tu sistema, solo debe hacerse una vez:
 mkcert -install
 
@@ -514,7 +561,7 @@ La base de datos esta funcionando por ahora todo nice :D
 
 ## Configurar el Frontend
 Abre una nueva terminal y entra a la carpeta frontend:
-cd proyectoFinal/frontend
+cd ../frontend
 
 ### Instalar dependencias
 npm install
