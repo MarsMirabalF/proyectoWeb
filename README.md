@@ -500,10 +500,6 @@ nombre en el .env del backend
 
 ![alt text](evidencias/image-5.png)
 
-luego darle click derecho a la db creada y se abrira esto:
-
-![alt text](evidencias/image.png)
-
 luego dar click derecho a la db creada y entrar a restore y desde ahi abrir el backupDB.sql 
 en windows ..\proyectoFinal\backupDB.sql 
 o la direccion en linux y mac seria en: ../proyectoFinal/backupDB.sql 
