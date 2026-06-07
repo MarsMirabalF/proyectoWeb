@@ -1,7 +1,7 @@
 # Mi Proyecto Web
 
-El proyecto corre en localhost con https el tutorial de despliegue del proyecto se encuentra al final
-primero se mostrara toda la informacion y fuentes que se usaron en el proyecto.
+El proyecto corre en localhost con https el tutorial de despliegue del proyecto se encuentra al final.
+Primero se mostrara toda la informacion y fuentes que se usaron en el proyecto.
 
 ## Diseño de la Base de Datos
 
