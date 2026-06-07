@@ -125,6 +125,11 @@ Códigos de estado HTTP
 Para averiguar códigos de estado de respuesta HTTP:
 https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status
 
+Como una guia general se utilizo el siguiente tutorial que usa todas las tecnologias que yo elegi:
+sin bien no vi el tutorial completo si vi partes para el JSX y como empezar el backend.
+Es una implemntacion de un to do list, mi proyecto final es muy diferente al del tutorial a continuacion:
+https://www.youtube.com/watch?v=_zGL_MU29zs
+
 ## Uso de IA
 Luego aquí usé la IA DeepSeek porque quería añadir un mensaje aparte de solo el status:
 ![alt text](evidencias/image-1.png)
@@ -141,6 +146,7 @@ archivos controller.
 ![alt text](evidencias/image-14.png)
 ![alt text](evidencias/image-12.png)
 
+## Uso e-tag en el back
 
 Aqui no pude encontrar material interactivo de como usar el E-tag manualmente asi que pregunte a la IA chatGPT:
 
@@ -155,6 +161,24 @@ Quiero recalcar que he desactivado la opcion automatica de express para manejar 
 app.js del backend backend\src\app.js esto para que el e-tag solo tenga sentido en las rutas GET de archivos y notas osea listar
 las notas sino express solo genera el e-tag automatico en los headers, como yo ya genero mi propio etag no es necesario
 entonces lo desactive.
+
+## Uso de e-tag en el front
+
+Como ya mencione antes no encontre material para implementar etag en el proyecto,
+asi que pregunte a la IA chatGPT con el mismo promt que mencione en la backend:
+
+![alt text](evidencias/image-1-3.png)
+
+Y me respondio esto:
+
+![alt text](evidencias/image-1-4.png)
+
+Mi implementacion esta en la clase:
+archivosServicio.js :   frontend\src\servicios\archivosServicio.js
+notasServicio.js :   frontend\src\servicios\notasServicio.js
+
+
+
 
 
 # Parte del Drive
@@ -209,6 +233,39 @@ luego use la tabla de referencia
 y finalmente me dijo;
 ![alt text](evidencias/image-11.png)
 
+## Paginacion en el backend
+Para la parte de paginacion en el back use de referencia el siguiente repositorio 
+especificamente esta clase de aqui orders.controller.js:
+
+https://github.com/dhatGuy/PERN-Store/blob/main/server/controllers/orders.controller.js
+
+Y mi propia implementacion se encuentra en:
+notas.controller en la funcion obtener notas: backend\src\controllers\notas.controller.js 
+archivos.controller en la funcion obtener archivos: backend\src\controllers\archivos.controller.js
+
+
+
+
+
+
+
+## Paginacion en el frontend
+Para la parte de paginacion en el front use de referencia el siguiente repositorio 
+especificamente esta clase de aqui api.js:
+
+https://github.com/JHOAN-FIGUEROA/compuoriente/blob/83ba897e92f4dc1095e0014fb8017c4ccf2d4fd5/src/api.js#L132
+
+Y mi propia implementacion se encuentra en:
+notas.controller en la funcion de servicio de notas: frontend\src\servicios\notasServicio.js
+archivos.controller en la funcion de servicio de archivos: frontend\src\servicios\archivosServicio.js
+
+
+
+
+
+
+
+
 
 
 
@@ -252,7 +309,9 @@ La saqué del video de Fazt que dije antes:
 https://axios-http.com/es/docs/intro
 
 
+
 ## Estados (useState) y Efectos (useEffect)
+
 Video Hooks en React
 https://www.youtube.com/watch?v=LlvTdy9H4EA
 el tutorial recomienda revisar lo siguiente yo lo revise muy basico
@@ -265,14 +324,35 @@ el tutorial recomienda revisar lo siguiente yo lo revise muy basico
 
 
 ## Subida de archivos desde React
+
 El repositorio aqui para hacer que se muestre desde react las funcionalidades del drive en backend, basandome aqui para hacer el componente:
 https://github.com/bradtraversy/react_file_uploader/blob/master/client/src/components/FileUpload.js
 Y mi propia implementacion corresponde a la clase Drive.js en la direccion ..\frontend\src\componentes\drive\Drive.js
 
+
+
 ## Inicio de sesion 
+
 se uso el mismo tutorial del back que puse y era este
 Para saber el funcionamiento y implementacion de JWT el siguiente tutorial tambien se uso para react en el frontend:
 https://youtu.be/zBbqrcvdJjQ?si=SFEtDnktYmzVptCG
+
+
+
+
+
+
+
+## Paginacion en el frontend
+
+
+
+
+
+
+
+
+
 
 
 
