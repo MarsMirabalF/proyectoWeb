@@ -9,19 +9,16 @@ import Drive from './componentes/drive/Drive';
 function App() {
 
     const [usuario, setUsuario] = useState(null);
-    const [token, setToken] = useState(null);
     const [mostrarRegistro, setMostrarRegistro] = useState(false);
 
     const alLoginExitoso = (datosUsuario, tokenRecibido) => {
         setUsuario(datosUsuario);
-        setToken(tokenRecibido);
         
         axios.defaults.headers.common['Authorization'] = `Bearer ${tokenRecibido}`;
     };
 
     const alSalir = () => {
         setUsuario(null);
-        setToken(null);
         delete axios.defaults.headers.common['Authorization'];
     };
 
