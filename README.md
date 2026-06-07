@@ -420,7 +420,57 @@ Requisitos previos:
 
 ## Clonar el repositorio
 git clone https://github.com/MarsMirabalF/proyectoWeb
-cd proyectoFinal
+cd proyectoWeb
+
+### Backup db
+Para esto debe abrir PGAdmin
+luego crearse una db con postgres 18
+
+![alt text](evidencias/image-4.png)
+
+llamarla: "proyectoWeb" y darle a save, si ya tiene ese nombre puede cambiarlo, pero recuerde actualizar su
+nombre en el .env del backend
+
+![alt text](evidencias/image-5.png)
+
+luego darle click derecho a la db creada y se abrira esto:
+
+![alt text](evidencias/image.png)
+
+luego dar click derecho a la db creada y entrar a restore y desde ahi abrir el backupDB.sql 
+en ..\proyectoFinal\backupDB.sql en como en la imagen:
+
+![alt text](evidencias/image-3.png)
+
+Debe de abrir y poner el archivo backupDB.sql en filename:
+
+![alt text](image-1-10.png)
+
+Tal vez no pueda ver el .sql para eso debe activar para ver los archivos .sql como en la imagen:
+
+![alt text](image-2-20.png)
+![alt text](image-3-30.png)
+
+Habra el archivo y dele a abrir:
+
+![alt text](image-4-40.png)
+
+Luego debe deslizar hacia abajo dando click en role name para poner el siguiente usario:
+
+![alt text](image-00.png)
+
+Asi deberia quedar y dele a restore:
+
+![alt text](image-5-50.png)
+
+y eso seria todo.
+
+El archivo backupDB.sql que subi al repo se genero automaticamente con la herramienta PGadmin
+para facilitar todo.
+
+Cabe recalcar que los archivos fisicos estan subidos al repositorio pero no estan en la db
+por tanto este backupDB,sql ya tiene las direcciones del ultimo commit en el repositorio y
+todo deberia funcionar bien.
 
 ## Instalar certificados HTTPS
 Instala la autoridad certificadora en tu sistema, solo debe hacerse una vez:
